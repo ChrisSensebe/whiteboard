@@ -8,9 +8,10 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET sections pages. */
-
-router.get('/*', function(req, res, next) {
-  res.render('index', {title: 'Nizural', article: 'index'});
+entries.getSections().forEach(function(entry){
+  router.get('/' + entries.getSection(entry).sectionTitle, function(req, res, next){
+    res.render('index', {title: 'Nizural', article: entries.getSection(entry).articles});
+  });
 });
 
 // router.get('/code', function(req, res, next) {
