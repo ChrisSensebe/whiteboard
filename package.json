@@ -1,8 +1,8 @@
 {
-  "name": "blog",
+  "name": "whiteboard",
   "author": "Christophe Sensebé <christophe.sensebe@gmail.com",
-  "description": "blog perso",
-  "version": "0.1.0",
+  "description": "CMS",
+  "version": "0.0.",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
