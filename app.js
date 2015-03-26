@@ -8,6 +8,11 @@ var routes       = require('./routes/index');
 var users        = require('./routes/users');
 var app          = express();
 
+// database
+var mongo = require('mongodb');
+var monk  = require('monk');
+var db    = monk(process.env.IP + ':' + process.env.PORT + '/whiteboard');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -19,6 +24,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// making db accessible to router
+app.use(function(req, res, next){
+  req.db = db;
+  next();
+});
 
 app.use('/', routes);
 app.use('/users', users);
