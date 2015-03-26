@@ -1,3 +1,3 @@
 # blog
 
-blog using Express and ejs
+CMS using using express with ejs & mongodb
