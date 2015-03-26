@@ -9,9 +9,8 @@ var users        = require('./routes/users');
 var app          = express();
 
 // database
-var mongo = require('mongodb');
 var monk  = require('monk');
-var db    = monk(process.env.IP + ':' + process.env.PORT + '/whiteboard');
+var db    = monk(process.env.IP + '/whiteboard');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
