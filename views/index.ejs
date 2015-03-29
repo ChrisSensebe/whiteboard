@@ -5,8 +5,7 @@
     <body>
         <h1><%= title %></h1>
         <% articles.forEach(function(article){ %>
-            <h3><%= article.title %></h3>
-            <p><%= article.section1 %></p>
+            <a href="/article/<%= article.title %>"><%= article.title %></a><br>
         <% }); %>
         <a href="/newArticle">Add new article</a><br>
         <a href="/deleteArticle">Delete article</a>
