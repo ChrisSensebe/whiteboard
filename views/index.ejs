@@ -4,7 +4,10 @@
   </head>
   <body>
     <h1>Welcome to <%= title %></h1>
-    <h3>go to userlist</h3>
-    <a href='https://whiteboard-chrissensebe.c9.io/userlist'>userlist</a>
+    <h3>articles</h3>
+    <% articles.forEach(function(article){ %>
+      <h4><%= article.title %></h4>
+      <p><%= article.section1 %></p>
+    <% }); %>
   </body>
 </html>

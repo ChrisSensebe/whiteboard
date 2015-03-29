@@ -1,18 +1,14 @@
 var express = require('express');
 var router  = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {title: 'Whiteboard'});
-});
-
-/* GET userlist page */
-router.get('/userlist', function(req, res, next){
+/* GET home page */
+router.get('/', function(req, res, next){
     var db = req.db;
-    var collection = db.get('usercollection');
+    var collection = db.get('articles');
     collection.find({}, function(e, docs){
-       res.render('userlist', {
-           userlist : docs
+       res.render('index', {
+           title: 'Whiteboard',
+           articles : docs
        });
     });
 });
