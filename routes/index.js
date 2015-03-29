@@ -7,9 +7,16 @@ router.get('/', function(req, res, next){
     var collection = db.get('articles');
     collection.find({}, function(e, docs){
        res.render('index', {
-           title: 'Whiteboard',
+           title: 'Articles',
            articles : docs
        });
+    });
+});
+
+/* GET add article page */
+router.get('/newArticle', function(req, res){
+    res.render('newArticle', {
+        title: 'Add new article'
     });
 });
 
