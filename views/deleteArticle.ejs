@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <% articles.forEach(function(article){ %>
+            <h3><%= article.title %></h3>
+            <form id="delArticle" name="delArticle" method="post" action="/delArticle">
+                <input type="hidden" name="title" value="<%= article.title %>">
+                <button type='submit'>Delete</button>
+            </form>
+        <% }); %>
+    </body>
+</html>
