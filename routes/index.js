@@ -3,20 +3,99 @@ var router  = express.Router();
 
 /* GET home page */
 router.get('/', function(req, res, next){
+    
+    //internal DB variable
     var db = req.db;
+    //getting collection in db
     var collection = db.get('articles');
+    
+    //getting all articles in collection
     collection.find({}, function(e, docs){
        res.render('index', {
            title: 'Articles',
            articles : docs
        });
     });
+    
 });
 
 /* GET add article page */
 router.get('/newArticle', function(req, res){
     res.render('newArticle', {
         title: 'Add new article'
+    });
+});
+
+/* GET delete article page */
+router.get('/deleteArticle', function(req, res){
+    
+    //internal DB variable
+    var db = req.db;
+    //getting collection in db
+    var collection = db.get('articles');
+    
+    collection.find({}, function(e, docs){
+        res.render('deleteArticle', {
+            title: 'Delete article',
+            articles : docs
+        });
+    });
+    
+});
+
+/* POST to add article */
+router.post('/addArticle', function(req, res){
+    
+    //internal DB variable
+    var db = req.db;
+    //getting form values 'name' atributes
+    var title = req.body.title;
+    var article = req.body.article;
+    //getting collection
+    var collection = db.get('articles');
+    
+    //submit to the db
+    collection.insert({
+        'title': title,
+        'section1': article
+    }, function(err, doc){
+        if(err){
+            //return error if failed
+            res.send('There was a problem adding the article to the database');
+        }
+        else{
+            //else, set the header so the address bar doesn't still say /newArticle
+            res.location('/');
+            //redirect to index
+            res.redirect('/');
+        }
+    });
+});
+
+/* POST to del article */
+router.post('/delArticle', function(req, res){
+    
+    //internal DB variable
+    var db = req.db;
+    //getting form values 'name' atributes
+    var title = req.body.title;
+    //getting collection
+    var collection = db.get('articles');
+    
+    //submit to the db
+    collection.remove({
+        'title': title
+    }, function(err, doc){
+        if(err){
+            //return error if failed
+            res.send('There was a problem deleting the article from the database');
+        }
+        else{
+            //else, set the header so the address bar doesn't still say /newArticle
+            res.location('/');
+            //redirect to index
+            res.redirect('/');
+        }
     });
 });
 
