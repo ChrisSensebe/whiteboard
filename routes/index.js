@@ -11,8 +11,48 @@ router.param('title', function(req, res, next, title){
     next();
 });
 
+/* site routes */
+
 /* GET home page */
 router.get('/', function(req, res, next){
+    
+    // internal DB variable
+    var db = req.db;
+    // getting collection in db
+    var collection = db.get('articles');
+    
+    // getting all articles in collection
+    collection.find({}, function(e, docs){
+       res.render('site/index', {
+           title: 'Articles',
+           articles : docs
+       });
+    });
+    
+});
+
+/* GET article page */
+router.get('/article/:title', function(req, res){
+    
+    // internal DB variable
+    var db = req.db;
+    // getting collection
+    var collection = db.get('articles');
+    // getting 'title' atribute
+    var title = unescape(req.title);
+    // getting entry that match 'title'
+    collection.findOne({'title': title}, {'_id': 0,'title': 1, 'section1': 1}, function(e, docs){
+        res.render('site/article', {
+            article : docs
+        });
+    });
+    
+});
+
+/* admin routes */
+
+/* GET admin home page */
+router.get('/admin', function(req, res, next){
     
     //internal DB variable
     var db = req.db;
@@ -21,40 +61,23 @@ router.get('/', function(req, res, next){
     
     //getting all articles in collection
     collection.find({}, function(e, docs){
-       res.render('index', {
-           title: 'Articles',
+       res.render('admin/admin', {
+           title: 'Admin',
            articles : docs
        });
     });
     
 });
 
-/* GET add article page */
-router.get('/newArticle', function(req, res){
-    res.render('newArticle', {
+/* GET new article page */
+router.get('/addArticle', function(req, res){
+    res.render('admin/addArticle', {
         title: 'Add new article'
     });
 });
 
-/* GET delete article page */
-router.get('/deleteArticle', function(req, res){
-    
-    //internal DB variable
-    var db = req.db;
-    //getting collection in db
-    var collection = db.get('articles');
-    
-    collection.find({}, function(e, docs){
-        res.render('deleteArticle', {
-            title: 'Delete article',
-            articles : docs
-        });
-    });
-    
-});
-
-/* GET article page */
-router.get('/article/:title', function(req, res){
+/* GET edit article page */
+router.get('/editArticle/:title', function(req, res){
     
     //internal DB variable
     var db = req.db;
@@ -64,14 +87,14 @@ router.get('/article/:title', function(req, res){
     var title = unescape(req.title);
     //getting entry that match 'title'
     collection.findOne({'title': title}, {'_id': 0,'title': 1, 'section1': 1}, function(e, docs){
-        res.render('article', {
+        res.render('admin/editArticle', {
             article : docs
         });
     });
     
 });
 
-/* POST to add article */
+/* POST addArticle */
 router.post('/addArticle', function(req, res){
     
     //internal DB variable
@@ -93,26 +116,59 @@ router.post('/addArticle', function(req, res){
         }
         else{
             //else, set the header so the address bar doesn't still say /newArticle
-            res.location('/');
+            res.location('/admin');
             //redirect to index
-            res.redirect('/');
+            res.redirect('/admin');
         }
     });
 });
 
-/* POST to del article */
-router.post('/delArticle', function(req, res){
+/* POST updateArticle */
+router.post('/updateArticle', function(req, res){
     
     //internal DB variable
     var db = req.db;
     //getting form values 'name' atributes
-    var title = req.body.title;
+    var articleId    = req.body.id;
+    console.log(articleId);
+    var articleTitle = req.body.title;
+    var article      = req.body.article;
+    //getting collection
+    var collection = db.get('articles');
+    
+    //submit to the db
+    collection.update(
+        {'_id': articleId},
+        {$set: {
+            'title': articleTitle,
+            'section1': article
+        }}, function(err, doc){
+        if(err){
+            //return error if failed
+            res.send('There was a problem updating the article to the database');
+        }
+        else{
+            //else, set the header so the address bar doesn't still say /newArticle
+            res.location('/admin');
+            //redirect to index
+            res.redirect('/admin');
+        }
+    });
+});
+
+/* POST deleteArticle */
+router.post('/deleteArticle', function(req, res){
+    
+     //internal DB variable
+    var db = req.db;
+    //getting form values 'name' atributes
+    var articleId = req.body.id;
     //getting collection
     var collection = db.get('articles');
     
     //submit to the db
     collection.remove({
-        'title': title
+        '_id': articleId
     }, function(err, doc){
         if(err){
             //return error if failed
@@ -120,9 +176,9 @@ router.post('/delArticle', function(req, res){
         }
         else{
             //else, set the header so the address bar doesn't still say /newArticle
-            res.location('/');
+            res.location('/admin');
             //redirect to index
-            res.redirect('/');
+            res.redirect('/admin');
         }
     });
 });
