@@ -115,9 +115,8 @@ router.post('/addArticle', function(req, res){
             res.send('There was a problem adding the article to the database');
         }
         else{
-            //else, set the header so the address bar doesn't still say /newArticle
+            //redirect to admin
             res.location('/admin');
-            //redirect to index
             res.redirect('/admin');
         }
     });
@@ -148,9 +147,8 @@ router.post('/updateArticle', function(req, res){
             res.send('There was a problem updating the article to the database');
         }
         else{
-            //else, set the header so the address bar doesn't still say /newArticle
+            //redirect to admin
             res.location('/admin');
-            //redirect to index
             res.redirect('/admin');
         }
     });
@@ -175,9 +173,8 @@ router.post('/deleteArticle', function(req, res){
             res.send('There was a problem deleting the article from the database');
         }
         else{
-            //else, set the header so the address bar doesn't still say /newArticle
+            //redirect to admin
             res.location('/admin');
-            //redirect to index
             res.redirect('/admin');
         }
     });

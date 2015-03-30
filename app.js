@@ -6,6 +6,7 @@ var cookieParser   = require('cookie-parser');
 var bodyParser     = require('body-parser');
 var index          = require('./routes/index');
 var users          = require('./routes/users');
+var config         = require('./config');
 var passport       = require('passport');
 var expressSession = require('express-session');
 var app            = express();
@@ -31,6 +32,11 @@ app.use(function(req, res, next){
   req.db = db;
   next();
 });
+
+// session & authenticating
+app.use(expressSession({secret: config.secret}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 app.use('/', index);
