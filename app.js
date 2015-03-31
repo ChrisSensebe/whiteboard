@@ -4,16 +4,18 @@ var favicon        = require('serve-favicon');
 var logger         = require('morgan');
 var cookieParser   = require('cookie-parser');
 var bodyParser     = require('body-parser');
-var index          = require('./routes/index');
 var users          = require('./routes/users');
-var config         = require('./config');
+var app            = express();
+// router
+var routes         = require('./routes/index');
+// sessions & authenticating
 var passport       = require('passport');
 var expressSession = require('express-session');
-var app            = express();
-
 // database
-var monk  = require('monk');
-var db    = monk(process.env.IP + '/whiteboard');
+var monk           = require('monk');
+var db             = monk(process.env.IP + '/whiteboard');
+// config file: config.js
+var config         = require('./config');         
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,7 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // routes
-app.use('/', index);
+app.use('/', routes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
