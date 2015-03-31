@@ -12,11 +12,12 @@ var passport       = require('passport');
 var expressSession = require('express-session');
 // database
 var mongoose       = require('mongoose');
-// database connection
-mongoose.connect(process.env.IP + '/whiteboard');
 // config file: config.js
 var config         = require('./config');         
 var app            = express();
+
+// database connection
+mongoose.connect(config.databaseUrl);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

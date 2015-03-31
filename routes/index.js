@@ -1,8 +1,7 @@
 var express  = require('express');
-var router   = express.Router();
-var Article = require('../models/article');
+var Article  = require('../models/article');
 var Users    = require('../models/user');
-
+var router   = express.Router();
 
 /* route middleware to validate :title */
 router.param('title', function(req, res, next, title){
