@@ -1,5 +1,8 @@
-var express = require('express');
-var router  = express.Router();
+var express  = require('express');
+var router   = express.Router();
+var Article = require('../models/article');
+var Users    = require('../models/user');
+
 
 /* route middleware to validate :title */
 router.param('title', function(req, res, next, title){
@@ -16,17 +19,12 @@ router.param('title', function(req, res, next, title){
 /* GET home page */
 router.get('/', function(req, res, next){
     
-    // internal DB variable
-    var db = req.db;
-    // getting collection in db
-    var collection = db.get('articles');
-    
     // getting all articles in collection
-    collection.find({}, function(e, docs){
-       res.render('site/index', {
+    Article.find({}, function(error, docs){
+        res.render('site/index', {
            title: 'Articles',
            articles : docs
-       });
+        });
     });
     
 });
@@ -34,16 +32,13 @@ router.get('/', function(req, res, next){
 /* GET article page */
 router.get('/article/:title', function(req, res){
     
-    // internal DB variable
-    var db = req.db;
-    // getting collection
-    var collection = db.get('articles');
     // getting 'title' atribute
     var title = unescape(req.title);
     // getting entry that match 'title'
-    collection.findOne({'title': title}, {'_id': 0,'title': 1, 'section1': 1}, function(e, docs){
+    Article.find({'title': title}, function(e, docs){
+        var doc = docs[0];
         res.render('site/article', {
-            article : docs
+            article : doc
         });
     });
     
@@ -54,13 +49,8 @@ router.get('/article/:title', function(req, res){
 /* GET admin home page */
 router.get('/admin', function(req, res, next){
     
-    //internal DB variable
-    var db = req.db;
-    //getting collection in db
-    var collection = db.get('articles');
-    
     //getting all articles in collection
-    collection.find({}, function(e, docs){
+    Article.find({}, function(e, docs){
        res.render('admin/admin', {
            title: 'Admin',
            articles : docs
@@ -79,16 +69,13 @@ router.get('/addArticle', function(req, res){
 /* GET edit article page */
 router.get('/editArticle/:title', function(req, res){
     
-    //internal DB variable
-    var db = req.db;
-    //getting collection
-    var collection = db.get('articles');
     //getting 'title' atribute
     var title = unescape(req.title);
     //getting entry that match 'title'
-    collection.findOne({'title': title}, {'_id': 0,'title': 1, 'section1': 1}, function(e, docs){
+    Article.find({'title': title}, function(e, docs){
+        var doc = docs[0];
         res.render('admin/editArticle', {
-            article : docs
+            article : doc
         });
     });
     
@@ -97,86 +84,65 @@ router.get('/editArticle/:title', function(req, res){
 /* POST addArticle */
 router.post('/addArticle', function(req, res){
     
-    //internal DB variable
-    var db = req.db;
-    //getting form values 'name' atributes
-    var title = req.body.title;
-    var article = req.body.article;
-    //getting collection
-    var collection = db.get('articles');
+    //inputs
+    var articleTitle    = req.body.title;
+    var articleSection1 = req.body.article;
+    
+    // create new Article
+    var newArticle = Article({
+        title: articleTitle,
+        section1: articleSection1,
+    });
     
     //submit to the db
-    collection.insert({
-        'title': title,
-        'section1': article
-    }, function(err, doc){
+    newArticle.save(function(err){
         if(err){
-            //return error if failed
-            res.send('There was a problem adding the article to the database');
+            console.log(err);
         }
-        else{
-            //redirect to admin
-            res.location('/admin');
-            res.redirect('/admin');
-        }
+    console.log('article created');
+    //redirect to admin
+    res.location('/admin');
+    res.redirect('/admin');
     });
 });
 
 /* POST updateArticle */
 router.post('/updateArticle', function(req, res){
     
-    //internal DB variable
-    var db = req.db;
-    //getting form values 'name' atributes
-    var articleId    = req.body.id;
-    console.log(articleId);
-    var articleTitle = req.body.title;
-    var article      = req.body.article;
-    //getting collection
-    var collection = db.get('articles');
+    //inputs
+    var articleId              = req.body.id;
+    var articleTitle    = req.body.title;
+    var articleSection1 = req.body.article;
     
-    //submit to the db
-    collection.update(
-        {'_id': articleId},
-        {$set: {
-            'title': articleTitle,
-            'section1': article
-        }}, function(err, doc){
+    // find article and update
+    Article.findByIdAndUpdate(articleId, {title: articleTitle, section1: articleSection1}, function(err){
         if(err){
-            //return error if failed
-            res.send('There was a problem updating the article to the database');
+            console.log(err);
         }
-        else{
-            //redirect to admin
-            res.location('/admin');
-            res.redirect('/admin');
-        }
+        console.log('article updated');
+        
+        //redirect to admin
+        res.location('/admin');
+        res.redirect('/admin');
     });
 });
 
 /* POST deleteArticle */
 router.post('/deleteArticle', function(req, res){
     
-     //internal DB variable
-    var db = req.db;
-    //getting form values 'name' atributes
-    var articleId = req.body.id;
-    //getting collection
-    var collection = db.get('articles');
+    //inputs
+    var articleId       = req.body.id;
     
-    //submit to the db
-    collection.remove({
-        '_id': articleId
-    }, function(err, doc){
+    // find article and delete
+    Article.findByIdAndRemove(articleId, function(err){
         if(err){
-            //return error if failed
-            res.send('There was a problem deleting the article from the database');
+            console.log(err);
         }
-        else{
-            //redirect to admin
-            res.location('/admin');
-            res.redirect('/admin');
-        }
+        console.log('article deleted');
+        
+        //redirect to admin
+        res.location('/admin');
+        res.redirect('/admin');
     });
 });
 
