@@ -3,7 +3,7 @@ var Article  = require('../models/article');
 var Users    = require('../models/user');
 var router   = express.Router();
 
-/* route middleware to validate :title */
+/* route middleware to validate : title */
 router.param('title', function(req, res, next, title){
     //url encode title
     var urlEncodedTitle = encodeURI(title);
