@@ -31,7 +31,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // session & authenticating
-app.use(expressSession({secret: config.secret}));
+app.use(expressSession({
+  secret: config.secret,
+  saveUninitialized: true,
+  resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
