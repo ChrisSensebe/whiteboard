@@ -50,8 +50,8 @@ module.exports = function(passport){
             });
         };
         
-    // delay execution of findOrCreateUser to the next tick
-    process.nextTick(findOrCreateUser);
+        // delay execution of findOrCreateUser to the next tick
+        process.nextTick(findOrCreateUser);
     
     }));
     

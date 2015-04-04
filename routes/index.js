@@ -80,18 +80,18 @@ router.get('/signup', function(req, res){
 // POST login
 router.post('/login', passport.authenticate('login', {
     
-    successRedirect  : '/admin',
-    faillureRedirect : '/login',
-    failureFlash     : true
+    successRedirect  : '/admin', //ok
+    failureRedirect  : '/login', //ok
+    failureFlash     : true      //ok
     
 }));
 
 // POST register
 router.post('/signup', passport.authenticate('signup', {
-   
-   successRedirect  : '/admin',
-   faillureRedirect : '/signup',
-   failureFlash     : true
+    
+    successRedirect  : '/admin',
+    failureRedirect  : '/signup',
+    failureFlash     : true
     
 }));
 
