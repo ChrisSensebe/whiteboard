@@ -65,7 +65,7 @@ router.get('/article/:title', function(req, res){
 router.get('/login', function(req, res){
     
     // display login page
-    res.render('login', {message : req.flash('message')});
+    res.render('authentication/login', {message : req.flash('message')});
     
 });
 
@@ -73,7 +73,7 @@ router.get('/login', function(req, res){
 router.get('/signup', function(req, res){
     
     //display login page
-    res.render('signup', {message : req.flash('message')});
+    res.render('authentication/signup', {message : req.flash('message')});
     
 });
 
