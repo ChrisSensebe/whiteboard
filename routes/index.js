@@ -78,22 +78,22 @@ router.get('/signup', function(req, res){
 });
 
 // POST login
-router.post('/login', passport.authenticate('login'), {
+router.post('/login', passport.authenticate('login', {
     
     successRedirect  : '/admin',
     faillureRedirect : '/login',
     failureFlash     : true
     
-});
+}));
 
 // POST register
-router.post('/signup', passport.authenticate('signup'), {
+router.post('/signup', passport.authenticate('signup', {
    
-   successRedirect  : '/admin',
-   faillureRedirect : '/signup',
-   failureFlash     : true
+  successRedirect  : '/admin',
+  faillureRedirect : '/signup',
+  failureFlash     : true
     
-});
+}));
 
 /* admin routes */
 
