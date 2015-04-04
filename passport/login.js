@@ -10,6 +10,8 @@ module.exports = function(passport){
     };
     
     passport.use('login', new LocalStrategy({
+        
+        // allows to pass the request to the callback
         passReqToCallback : true
     },
     function(req, username, password, done){

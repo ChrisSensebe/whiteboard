@@ -1,11 +1,13 @@
 var LocalStrategy = require('passport-local').Strategy;
-var Users          = require('../models/users');
+var Users         = require('../models/users');
 var bCrypt        = require('bcrypt-nodejs');
 
 module.exports = function(passport){
     
     passport.use('signup', new LocalStrategy({
-        passReqToCallback : true // allows to pass the request to the callback
+        
+        // allows to pass the request to the callback
+        passReqToCallback : true
     },
     function(req, username, password, done){
         

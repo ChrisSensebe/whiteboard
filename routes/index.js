@@ -89,9 +89,9 @@ router.post('/login', passport.authenticate('login', {
 // POST register
 router.post('/signup', passport.authenticate('signup', {
    
-  successRedirect  : '/admin',
-  faillureRedirect : '/signup',
-  failureFlash     : true
+   successRedirect  : '/admin',
+   faillureRedirect : '/signup',
+   failureFlash     : true
     
 }));
 
@@ -106,7 +106,7 @@ router.get('/logout', function(req, res) {
 /* admin routes */
 
 // GET admin home page
-router.get('/admin', function(req, res, next){
+router.get('/admin', isAuthenticated, function(req, res, next){
     
     //getting all articles in collection
     Article.find({}, function(e, docs){
@@ -119,14 +119,14 @@ router.get('/admin', function(req, res, next){
 });
 
 // GET new article page
-router.get('/addArticle', function(req, res){
+router.get('/addArticle', isAuthenticated, function(req, res){
     res.render('admin/addArticle', {
         title: 'Add new article'
     });
 });
 
 // GET edit article page
-router.get('/editArticle/:title', function(req, res){
+router.get('/editArticle/:title', isAuthenticated, function(req, res){
     
     //getting 'title' atribute
     var title = unescape(req.title);
@@ -141,7 +141,7 @@ router.get('/editArticle/:title', function(req, res){
 });
 
 // POST addArticle
-router.post('/addArticle', function(req, res){
+router.post('/addArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleTitle    = req.body.title;
@@ -166,7 +166,7 @@ router.post('/addArticle', function(req, res){
 });
 
 // POST updateArticle
-router.post('/updateArticle', function(req, res){
+router.post('/updateArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleId       = req.body.id;
@@ -187,10 +187,10 @@ router.post('/updateArticle', function(req, res){
 });
 
 // POST deleteArticle
-router.post('/deleteArticle', function(req, res){
+router.post('/deleteArticle', isAuthenticated, function(req, res){
     
     //inputs
-    var articleId       = req.body.id;
+    var articleId = req.body.id;
     
     // find article and delete
     Article.findByIdAndRemove(articleId, function(err){
