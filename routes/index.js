@@ -1,9 +1,11 @@
 var express  = require('express');
 var Article  = require('../models/article');
 var Users    = require('../models/user');
+var passport = require('passport');
 var router   = express.Router();
 
 /* route middleware to validate : title */
+
 router.param('title', function(req, res, next, title){
     //url encode title
     var urlEncodedTitle = encodeURI(title);
@@ -13,9 +15,23 @@ router.param('title', function(req, res, next, title){
     next();
 });
 
+/* middleware to check authentication */
+
+var isAuthenticated = function(req, res, next){
+    
+    // user is authenticated, call next()
+    if(req.isAuthenticated()){
+        return next();
+    }
+    
+    // user : authenticated, redirect to login
+    res.redirect('/login');
+    
+};
+
 /* site routes */
 
-/* GET home page */
+// GET home page
 router.get('/', function(req, res, next){
     
     // getting all articles in collection
@@ -28,7 +44,7 @@ router.get('/', function(req, res, next){
     
 });
 
-/* GET article page */
+// GET article page
 router.get('/article/:title', function(req, res){
     
     // getting 'title' atribute
@@ -43,10 +59,46 @@ router.get('/article/:title', function(req, res){
     
 });
 
+/* login & signup routes */
+
+// GET login page
+router.get('/login', function(req, res){
+    
+    // display login page
+    res.render('login', {message : req.flash('message')});
+    
+});
+
+// GET signup page
+router.get('/signup', function(req, res){
+    
+    //display login page
+    res.render('signup', {message : req.flash('message')});
+    
+});
+
+// POST login
+router.post('/login', passport.authenticate('login'), {
+    
+    successRedirect  : '/admin',
+    faillureRedirect : '/login',
+    failureFlash     : true
+    
+});
+
+// POST register
+router.post('/signup', passport.authenticate('signup'), {
+   
+   successRedirect  : '/admin',
+   faillureRedirect : '/signup',
+   failureFlash     : true
+    
+});
+
 /* admin routes */
 
-/* GET admin home page */
-router.get('/admin', function(req, res, next){
+// GET admin home page
+router.get('/admin', isAuthenticated, function(req, res, next){
     
     //getting all articles in collection
     Article.find({}, function(e, docs){
@@ -58,15 +110,15 @@ router.get('/admin', function(req, res, next){
     
 });
 
-/* GET new article page */
-router.get('/addArticle', function(req, res){
+// GET new article page
+router.get('/addArticle', isAuthenticated, function(req, res){
     res.render('admin/addArticle', {
         title: 'Add new article'
     });
 });
 
-/* GET edit article page */
-router.get('/editArticle/:title', function(req, res){
+// GET edit article page
+router.get('/editArticle/:title', isAuthenticated, function(req, res){
     
     //getting 'title' atribute
     var title = unescape(req.title);
@@ -80,8 +132,8 @@ router.get('/editArticle/:title', function(req, res){
     
 });
 
-/* POST addArticle */
-router.post('/addArticle', function(req, res){
+// POST addArticle
+router.post('/addArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleTitle    = req.body.title;
@@ -105,8 +157,8 @@ router.post('/addArticle', function(req, res){
     });
 });
 
-/* POST updateArticle */
-router.post('/updateArticle', function(req, res){
+// POST updateArticle
+router.post('/updateArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleId              = req.body.id;
@@ -126,8 +178,8 @@ router.post('/updateArticle', function(req, res){
     });
 });
 
-/* POST deleteArticle */
-router.post('/deleteArticle', function(req, res){
+// POST deleteArticle
+router.post('/deleteArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleId       = req.body.id;

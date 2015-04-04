@@ -2,7 +2,7 @@ var LocalStrategy = require('passport-local').strategy;
 var User          = require('../models/user');
 var bCrypt        = require('bcrypt-nodejs');
 
-module.exports    = function(passport){
+module.exports = function(passport){
     
     passport.use('signup', new LocalStrategy({
         passReqToCallback : true // allows to pass the request to the callback
@@ -10,18 +10,22 @@ module.exports    = function(passport){
     function(req, username, password, done){
         
         var findOrCreateUser = function(){
+            
             // find user in mongo
             User.findOne({'username' : username}, function(err, user){
+                
                 // return using the done method
                 if(err){
                     console.log(err);
                     return done(err);
                 }
+                
                 // already exists
                 if(user){
                     console.log('user ' + username + 'already exists');
-                    return done(null, false);
+                    return done(null, false, req.flash('message', 'user already exists'));
                 }
+                
                 // create the user
                 else{
                     var newUser = new User();
@@ -40,8 +44,10 @@ module.exports    = function(passport){
                         return(null, newUser);
                     });
                 }
+                
             });
         };
+        
         // delay execution of findOrCreateUser to the next tick
         process.nextTick(findOrCreateUser);
     })
