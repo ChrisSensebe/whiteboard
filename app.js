@@ -8,11 +8,15 @@ var bodyParser     = require('body-parser');
 var routes         = require('./routes/index');
 // sessions & authenticating
 var passport       = require('passport');
+// passwortd init
+var initPassword   = require('./passport/init'); 
 var expressSession = require('express-session');
 // database
 var mongoose       = require('mongoose');
 // config file: config.js
-var config         = require('./config');         
+var config         = require('./config');
+// using flash middleware to store messages in session
+var flash = require('connect-flash');
 var app            = express();
 
 // database connection
@@ -29,15 +33,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 // session & authenticating
 app.use(expressSession({
   secret: config.secret,
   saveUninitialized: true,
   resave: true}));
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+// initializing password
+initPassword(passport);
 
 // routes
 app.use('/', routes);

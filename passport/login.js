@@ -1,5 +1,5 @@
-var localStrategy = require('passport-local').Strategy;
-var User          = ('../models/users');
+var LocalStrategy = require('passport-local').Strategy;
+var Users         = require('../models/users');
 var bCrypt        = require('bcrypt-nodejs');
 
 module.exports = function(passport){
@@ -9,13 +9,13 @@ module.exports = function(passport){
         return bCrypt.compareSync(password, user.password);
     };
     
-    passport.use('login', new localStrategy({
+    passport.use('login', new LocalStrategy({
         passReqToCallback : true
     },
     function(req, username, password, done){
         
         // check if user in db
-        User.findOne({'username' : username}),
+        Users.findOne({'username' : username}),
         function(err, user){
             
             // if err return using done method

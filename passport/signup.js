@@ -1,5 +1,5 @@
-var LocalStrategy = require('passport-local').strategy;
-var User          = require('../models/user');
+var LocalStrategy = require('passport-local').Strategy;
+var Users          = require('../models/users');
 var bCrypt        = require('bcrypt-nodejs');
 
 module.exports = function(passport){
@@ -12,7 +12,7 @@ module.exports = function(passport){
         var findOrCreateUser = function(){
             
             // find user in mongo
-            User.findOne({'username' : username}, function(err, user){
+            Users.findOne({'username' : username}, function(err, user){
                 
                 // return using the done method
                 if(err){
@@ -28,11 +28,11 @@ module.exports = function(passport){
                 
                 // create the user
                 else{
-                    var newUser = new User();
+                    var newUser = new Users();
                     
-                    newUser.username = username;
+                    newUser.username = req.body.username;
                     newUser.password = bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-                    newUser.email    = req.param('email');
+                    newUser.email    = req.body.email;
                     
                     // save the user
                     newUser.save(function(err){

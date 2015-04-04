@@ -1,6 +1,6 @@
 var express  = require('express');
 var Article  = require('../models/article');
-var Users    = require('../models/user');
+var Users    = require('../models/users');
 var passport = require('passport');
 var router   = express.Router();
 
@@ -161,7 +161,7 @@ router.post('/addArticle', isAuthenticated, function(req, res){
 router.post('/updateArticle', isAuthenticated, function(req, res){
     
     //inputs
-    var articleId              = req.body.id;
+    var articleId       = req.body.id;
     var articleTitle    = req.body.title;
     var articleSection1 = req.body.article;
     
