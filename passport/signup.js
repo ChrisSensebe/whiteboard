@@ -22,7 +22,7 @@ module.exports = function(passport){
                 
                 // already exists
                 if(user){
-                    console.log('user ' + username + 'already exists');
+                    console.log('user ' + username + ' already exists');
                     return done(null, false, req.flash('message', 'user already exists'));
                 }
                 
@@ -48,8 +48,9 @@ module.exports = function(passport){
             });
         };
         
-        // delay execution of findOrCreateUser to the next tick
-        process.nextTick(findOrCreateUser);
-    })
-    );
+    // delay execution of findOrCreateUser to the next tick
+    process.nextTick(findOrCreateUser);
+    
+    }));
+    
 };

@@ -95,6 +95,14 @@ router.post('/signup', passport.authenticate('signup', {
     
 }));
 
+// GET logout
+router.get('/logout', function(req, res) {
+    
+    req.logout();
+    res.redirect('/login');
+    
+});
+
 /* admin routes */
 
 // GET admin home page
