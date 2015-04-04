@@ -6,14 +6,11 @@ module.exports = function(passport){
     
     // serializing & deserializing user to support persistent login sessions
     passport.serializeUser(function(user, done){
-        console.log('serializing user: ');
-        console.log(user);
         done(null, user._id);
     });
     
     passport.deserializeUser(function(id, done){
         Users.findById(id, function(err, user){
-            console.log('deserializing user: ', user);
             done(err, user);
         });
     });

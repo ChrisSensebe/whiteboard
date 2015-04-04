@@ -13,13 +13,13 @@ module.exports = function(passport){
         passReqToCallback : true
     },
     function(req, username, password, done){
-        
         // check if user in db
-        Users.findOne({'username' : username}),
+        Users.findOne({'username' : username},
         function(err, user){
             
             // if err return using done method
             if(err){
+                console.log('error:' + err);
                 return done(err);
             }
             
@@ -37,7 +37,7 @@ module.exports = function(passport){
             
             // user & password match  --> return user
             return done(null, user);
-        };
-    }
-    ));
+            
+        });
+    }));
 };

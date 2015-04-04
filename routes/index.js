@@ -24,7 +24,7 @@ var isAuthenticated = function(req, res, next){
         return next();
     }
     
-    // user : authenticated, redirect to login
+    // if not redirect to login
     res.redirect('/login');
     
 };
@@ -98,7 +98,7 @@ router.post('/signup', passport.authenticate('signup', {
 /* admin routes */
 
 // GET admin home page
-router.get('/admin', isAuthenticated, function(req, res, next){
+router.get('/admin', function(req, res, next){
     
     //getting all articles in collection
     Article.find({}, function(e, docs){
@@ -111,14 +111,14 @@ router.get('/admin', isAuthenticated, function(req, res, next){
 });
 
 // GET new article page
-router.get('/addArticle', isAuthenticated, function(req, res){
+router.get('/addArticle', function(req, res){
     res.render('admin/addArticle', {
         title: 'Add new article'
     });
 });
 
 // GET edit article page
-router.get('/editArticle/:title', isAuthenticated, function(req, res){
+router.get('/editArticle/:title', function(req, res){
     
     //getting 'title' atribute
     var title = unescape(req.title);
@@ -133,7 +133,7 @@ router.get('/editArticle/:title', isAuthenticated, function(req, res){
 });
 
 // POST addArticle
-router.post('/addArticle', isAuthenticated, function(req, res){
+router.post('/addArticle', function(req, res){
     
     //inputs
     var articleTitle    = req.body.title;
@@ -158,7 +158,7 @@ router.post('/addArticle', isAuthenticated, function(req, res){
 });
 
 // POST updateArticle
-router.post('/updateArticle', isAuthenticated, function(req, res){
+router.post('/updateArticle', function(req, res){
     
     //inputs
     var articleId       = req.body.id;
@@ -179,7 +179,7 @@ router.post('/updateArticle', isAuthenticated, function(req, res){
 });
 
 // POST deleteArticle
-router.post('/deleteArticle', isAuthenticated, function(req, res){
+router.post('/deleteArticle', function(req, res){
     
     //inputs
     var articleId       = req.body.id;
