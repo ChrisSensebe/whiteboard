@@ -1,58 +1,43 @@
 var LocalStrategy = require('passport-local').Strategy;
-var Users         = require('../models/users');
+var User          = require('../models/users');
 var bCrypt        = require('bcrypt-nodejs');
 
 module.exports = function(passport){
     
-    passport.use('signup', new LocalStrategy({
-        
-        // allows to pass the request to the callback
-        passReqToCallback : true
-    },
-    function(req, username, password, done){
-        
-        var findOrCreateUser = function(){
+    passport.use('signup', new LocalStrategy(
+        {passReqToCallback : true}, // allows to pass the request to the callback
+        function(req, username, password, done){
             
-            // find user in mongo
-            Users.findOne({'username' : username}, function(err, user){
+            // User.findOne wont fire unless data is sent back
+            process.nextTick(function(){
                 
-                // return using the done method
-                if(err){
-                    console.log(err);
-                    return done(err);
-                }
-                
-                // already exists
-                if(user){
-                    console.log('user ' + username + ' already exists');
-                    return done(null, false, req.flash('message', 'user already exists'));
-                }
-                
-                // create the user
-                else{
-                    var newUser = new Users();
+                // find user with given username
+                User.findOne({ 'username' : username }, function(err, user){
                     
-                    newUser.username = req.body.username;
-                    newUser.password = bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-                    newUser.email    = req.body.email;
-                    
-                    // save the user
-                    newUser.save(function(err){
-                        if(err){
-                            console.log(err);
-                            throw err;
-                        }
-                        console.log('user registration succesful');
-                        return(null, newUser);
-                    });
-                }
-                
+                    // if err, return the error
+                    if(err){
+                        return done(err);
+                    }
+                    // check if user already exists
+                    if(user){
+                        return done(null, false, req.flash('message', 'user ' + username + ' already exists'));
+                    }
+                    // create the new user
+                    else{
+                        var newUser = new User();
+                        // save user
+                        newUser.username = username;
+                        newUser.password = bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+                        newUser.email    = req.body.email;
+                        newUser.save(function(err){
+                            if(err){
+                                throw err;
+                            }
+                            return done(null, newUser);
+                        });
+                    }
+                });
             });
-        };
-        
-        // delay execution of findOrCreateUser to the next tick
-        process.nextTick(findOrCreateUser);
-    
-    }));
-    
+        }
+    ));
 };

@@ -9,11 +9,8 @@ module.exports = function(passport){
         return bCrypt.compareSync(password, user.password);
     };
     
-    passport.use('login', new LocalStrategy({
-        
-        // allows to pass the request to the callback
-        passReqToCallback : true
-    },
+    passport.use('login', new LocalStrategy(
+        {passReqToCallback : true}, // allows to pass the request to the callback
     function(req, username, password, done){
         // check if user in db
         Users.findOne({'username' : username},
@@ -21,19 +18,16 @@ module.exports = function(passport){
             
             // if err return using done method
             if(err){
-                console.log('error:' + err);
                 return done(err);
             }
             
             // username !exists return err & redirect back
             if(!user){
-                console.log('user ' + username + ' not found');
                 return done(null, false, req.flash('message', 'user not found'));
             }
             
             // user exists but wrong return err & redirect back
             if(!isValidPassword(user, password)){
-                console.log('invalid pasword');
                 return done(null, false, req.flash('message', 'invalid password'));
             }
             
