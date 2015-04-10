@@ -204,4 +204,11 @@ router.post('/deleteArticle', isAuthenticated, function(req, res){
     });
 });
 
+// 404
+router.get('*', function(req, res){
+    if(req.accepts('html')){
+        res.render('site/404');
+    }
+});
+
 module.exports = router;
