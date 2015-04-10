@@ -12,6 +12,7 @@ module.exports = function(passport){
     passport.use('login', new LocalStrategy(
         {passReqToCallback : true}, // allows to pass the request to the callback
     function(req, username, password, done){
+        
         // check if user in db
         Users.findOne({'username' : username},
         function(err, user){
