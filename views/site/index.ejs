@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% include ../partials/head.ejs %>
     </head>
+    
     <body>
-        <h1><%= title %></h1>
-        <% articles.forEach(function(article){ %>
-            <a href="/article/<%= article.title %>"><%= article.title %></a><br>
-        <% }); %>
+        
+        <header>
+            <% include ../partials/header.ejs %>
+        </header>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><%= title %></h1>
+                    <% articles.forEach(function(article){ %>
+                    <a href="/article/<%= article.title %>"><%= article.title %></a><br>
+                <% }); %>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <% include ../partials/footer.ejs %>
+        </footer>
+        
     </body>
 </html>
