@@ -1,6 +1,5 @@
 var express  = require('express');
 var Article  = require('../models/article');
-var Users    = require('../models/users');
 var passport = require('passport');
 var router   = express.Router();
 
