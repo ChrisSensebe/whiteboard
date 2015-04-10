@@ -6,6 +6,8 @@ Site engine
 
 * express
 * mongodb
+* mongoose
+* passport
 
 ## License
 
