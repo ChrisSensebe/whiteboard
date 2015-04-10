@@ -12,6 +12,7 @@
             </header>
             
             <div class="container">
+                
                 <div class="row">
                     <div class="col-md-12">
                        <h1><%= title %></h1>
@@ -20,13 +21,18 @@
                             <a href="/editArticle/<%= article.title %>">Edit</a><br>
                             <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
                                 <input type="hidden" name="id" value="<%= article._id %>">
-                                <button type='submit'>Delete</button>
+                                <button type='submit' class="btn btn-primary">Delete</button>
                             </form>
                         <% }); %>
-                        <a href="/addArticle">Create new article</a><br>
-                        <a href="/logout">Logout</a>
                     </div>
                 </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="/addArticle">Create new article</a><br>
+                    </div>
+                </div>
+                
             </div>
         </div>
         
