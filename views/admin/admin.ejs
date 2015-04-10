@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% include ../partials/head.ejs %>
     </head>
+    
     <body>
-        <h1><%= title %></h1>
-        <% articles.forEach(function(article){ %>
-            <h3><%= article.title %></h3>
-            <a href="/editArticle/<%= article.title %>">Edit</a><br>
-            <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
-                <input type="hidden" name="id" value="<%= article._id %>">
-                <button type='submit'>Delete</button>
-            </form>
-        <% }); %>
-        <a href="/addArticle">Create new article</a><br>
-        <a href="/logout">Logout</a>
+        
+        <div id="wrap">
+            <header>
+                <% include ../partials/header.ejs %>
+            </header>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                       <h1><%= title %></h1>
+                        <% articles.forEach(function(article){ %>
+                            <h3><%= article.title %></h3>
+                            <a href="/editArticle/<%= article.title %>">Edit</a><br>
+                            <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
+                                <input type="hidden" name="id" value="<%= article._id %>">
+                                <button type='submit'>Delete</button>
+                            </form>
+                        <% }); %>
+                        <a href="/addArticle">Create new article</a><br>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer id="footer">
+            <% include ../partials/footer.ejs %>
+        </footer>
+        
+        <% include ../partials/scripts.ejs%>
+        
     </body>
 </html>

@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% include ../partials/head.ejs %>
     </head>
+    
     <body>
-        <h1>New article</h1>
-        <form id="addArticle" name="addArticle" method="post" action="/addArticle">
-            <input id="title" type="text" placeholder="Title" name="title"><br>
-            <textarea id="title" placeholder="Article" name="article"></textarea><br>
-            <button type="submit">Submit</button>
-        </form>
+        
+        <div id="wrap">
+            <header>
+                <% include ../partials/header.ejs %>
+            </header>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                       <h1>New article</h1>
+                        <form id="addArticle" name="addArticle" method="post" action="/addArticle">
+                            <input id="title" type="text" placeholder="Title" name="title"><br>
+                            <textarea id="title" placeholder="Article" name="article"></textarea><br>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer id="footer">
+            <% include ../partials/footer.ejs %>
+        </footer>
+        
+        <% include ../partials/scripts.ejs%>
+        
     </body>
 </html>

@@ -6,22 +6,24 @@
     
     <body>
         
-        <header>
-            <% include ../partials/header.ejs %>
-        </header>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1><%= title %></h1>
-                    <% articles.forEach(function(article){ %>
-                    <a href="/article/<%= article.title %>"><%= article.title %></a><br>
-                <% }); %>
+        <div id="wrap">
+            <header>
+                <% include ../partials/header.ejs %>
+            </header>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1><%= title %></h1>
+                        <% articles.forEach(function(article){ %>
+                        <a href="/article/<%= article.title %>"><%= article.title %></a><br>
+                    <% }); %>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <footer>
+        <footer id="footer">
             <% include ../partials/footer.ejs %>
         </footer>
         

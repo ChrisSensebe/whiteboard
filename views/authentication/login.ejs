@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% include ../partials/head.ejs %>
     </head>
+    
     <body>
-        <h1>Login</h1>
-        <h1><%= message %></h1>
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="username" autofocus required>
-            <input type="text" name="password" placeholder="password" required>
-            <button type="submit">Login</button>
-        </form>
+        
+        <div id="wrap">
+            <header>
+                <% include ../partials/header.ejs %>
+            </header>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Login</h1>
+                        <h1><%= message %></h1>
+                        <form action="/login" method="POST">
+                            <input type="text" name="username" placeholder="username" autofocus required>
+                            <input type="text" name="password" placeholder="password" required>
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer id="footer">
+            <% include ../partials/footer.ejs %>
+        </footer>
+        
+        <% include ../partials/scripts.ejs%>
+        
     </body>
 </html>

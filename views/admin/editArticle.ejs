@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% include ../partials/head.ejs %>
     </head>
+    
     <body>
-        <h1>Edit article</h1>
-        <form id="addArticle" name="addArticle" method="post" action="/updateArticle">
-            <input type="hidden" name="id" value="<%= article._id %>">
-            <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>"><br>
-            <textarea id="title" placeholder="Article" name="article"><%= article.section1 %></textarea><br>
-            <button type="submit">Submit</button>
-        </form>
-        <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
-                <input type="hidden" name="id" value="<%= article._id %>">
-                <button type='submit'>Delete</button>
-            </form>
+        
+        <div id="wrap">
+            <header>
+                <% include ../partials/header.ejs %>
+            </header>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Edit article</h1>
+                        <form id="addArticle" name="addArticle" method="post" action="/updateArticle">
+                            <input type="hidden" name="id" value="<%= article._id %>">
+                            <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>"><br>
+                            <textarea id="title" placeholder="Article" name="article"><%= article.section1 %></textarea><br>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
+                            <input type="hidden" name="id" value="<%= article._id %>">
+                            <button type='submit'>Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer id="footer">
+            <% include ../partials/footer.ejs %>
+        </footer>
+        
+        <% include ../partials/scripts.ejs%>
+        
     </body>
 </html>
