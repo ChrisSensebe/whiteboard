@@ -1,3 +1,12 @@
-# blog
+# Whiteboard
 
-CMS using using express with ejs & mongodb
+Site engine
+
+## Using
+
+* express
+* mongodb
+
+## License
+
+MIT

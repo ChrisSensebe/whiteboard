@@ -1,7 +1,7 @@
 {
   "name": "whiteboard",
   "author": "Christophe Sensebé <christophe.sensebe@gmail.com",
-  "description": "CMS",
+  "description": "site engine",
   "version": "0.0.1",
   "private": true,
   "scripts": {
