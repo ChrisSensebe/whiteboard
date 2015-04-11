@@ -36,8 +36,9 @@ router.get('/', function(req, res, next){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('site/index', {
-           title: 'Articles',
-           articles : docs
+            logged : req.isAuthenticated(),
+            title : 'Articles',
+            articles : docs
         });
     });
     
@@ -52,6 +53,7 @@ router.get('/article/:title', function(req, res){
     Article.find({'title': title}, function(e, docs){
         var doc = docs[0];
         res.render('site/article', {
+            logged : req.isAuthenticated(),
             article : doc
         });
     });
@@ -64,7 +66,10 @@ router.get('/article/:title', function(req, res){
 router.get('/login', function(req, res){
     
     // display login page
-    res.render('authentication/login', {message : req.flash('message')});
+    res.render('authentication/login', {
+        logged : req.isAuthenticated(),
+        message : req.flash('message')
+    });
     
 });
 
@@ -72,16 +77,19 @@ router.get('/login', function(req, res){
 router.get('/signup', function(req, res){
     
     //display login page
-    res.render('authentication/signup', {message : req.flash('message')});
+    res.render('authentication/signup', {
+        logged : req.isAuthenticated(),
+        message : req.flash('message')
+    });
     
 });
 
 // POST login
 router.post('/login', passport.authenticate('login', {
     
-    successRedirect  : '/admin', //ok
-    failureRedirect  : '/login', //ok
-    failureFlash     : true      //ok
+    successRedirect  : '/admin',
+    failureRedirect  : '/login',
+    failureFlash     : true
     
 }));
 
@@ -98,7 +106,7 @@ router.post('/signup', passport.authenticate('signup', {
 router.get('/logout', function(req, res) {
     
     req.logout();
-    res.redirect('/login');
+    res.redirect('/');
     
 });
 
@@ -110,6 +118,7 @@ router.get('/admin', isAuthenticated, function(req, res, next){
     //getting all articles in collection
     Article.find({}, function(e, docs){
        res.render('admin/admin', {
+           logged : req.isAuthenticated(),
            title: 'Admin',
            articles : docs
        });
@@ -120,6 +129,7 @@ router.get('/admin', isAuthenticated, function(req, res, next){
 // GET new article page
 router.get('/addArticle', isAuthenticated, function(req, res){
     res.render('admin/addArticle', {
+        logged : req.isAuthenticated(),
         title: 'Add new article'
     });
 });
@@ -133,6 +143,7 @@ router.get('/editArticle/:title', isAuthenticated, function(req, res){
     Article.find({'title': title}, function(e, docs){
         var doc = docs[0];
         res.render('admin/editArticle', {
+            logged : req.isAuthenticated(),
             article : doc
         });
     });
@@ -157,7 +168,6 @@ router.post('/addArticle', isAuthenticated, function(req, res){
         if(err){
             console.log(err);
         }
-    console.log('article created');
     //redirect to admin
     res.location('/admin');
     res.redirect('/admin');
@@ -177,7 +187,6 @@ router.post('/updateArticle', isAuthenticated, function(req, res){
         if(err){
             console.log(err);
         }
-        console.log('article updated');
         
         //redirect to admin
         res.location('/admin');
@@ -206,9 +215,13 @@ router.post('/deleteArticle', isAuthenticated, function(req, res){
 
 // 404
 router.get('*', function(req, res){
+    
     if(req.accepts('html')){
-        res.render('site/404');
+        res.render('site/404', {
+            logged : req.isAuthenticated()
+        });
     }
+    
 });
 
 module.exports = router;
