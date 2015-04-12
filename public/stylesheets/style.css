@@ -15,9 +15,6 @@ form{
 .form-control{
   margin-bottom: 10px;
 }
-textarea{
-  min-height: 100px;
-}
 .jumbotron{
   border: 1px solid #ccc;
 }
