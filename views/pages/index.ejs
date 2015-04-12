@@ -16,7 +16,8 @@
                     <div class="col-md-12">
                         <h1><%= title %></h1>
                         <% articles.forEach(function(article){ %>
-                        <a href="/article/<%= article._id %>"><%= article.title %></a><br>
+                        <h3><%= article.title %></h3>
+                        <a href="/article/<%= article._id %>">View article</a><br>
                     <% }); %>
                     </div>
                 </div>

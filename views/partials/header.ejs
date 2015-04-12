@@ -18,13 +18,21 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/edit">Edit</a></li>
                 <li><a href="/about">About</a></li>
-                <li><% 
-                    if(logged){
-                        %><a href="/logout">Logout</a><%
-                    }
-                    else{
-                        %><a href="/login">Login</a><%
-                    } %>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/signup">Signup</a></li>
+                        <li><% 
+                            if(logged){
+                                %><a href="/logout">Logout</a><%
+                            }
+                            else{
+                                %><a href="/login">Login</a><%
+                            } %>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

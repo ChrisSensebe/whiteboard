@@ -156,12 +156,12 @@ router.post('/addArticle', isAuthenticated, function(req, res){
     
     //inputs
     var articleTitle    = req.body.title;
-    var articleSection1 = req.body.article;
+    var articlearticleBody = req.body.article;
     
     // create new Article
     var newArticle = Article({
         title: articleTitle,
-        section1: articleSection1,
+        articleBody: articlearticleBody,
     });
     
     //submit to the db
@@ -175,16 +175,16 @@ router.post('/addArticle', isAuthenticated, function(req, res){
     });
 });
 
-// POST updateAndExit
-router.post('/updateAndExit', isAuthenticated, function(req, res){
+// POST update
+router.post('/update', isAuthenticated, function(req, res){
     
     //inputs
     var articleId       = req.body.id;
     var articleTitle    = req.body.title;
-    var articleSection1 = req.body.article;
+    var articlearticleBody = req.body.article;
     
     // find article and update
-    Article.findByIdAndUpdate(articleId, {title: articleTitle, section1: articleSection1}, function(err){
+    Article.findByIdAndUpdate(articleId, {title: articleTitle, articleBody: articlearticleBody}, function(err){
         if(err){
             console.log(err);
         }
