@@ -3,6 +3,9 @@
 body{
   font-family: 'Lato', sans-serif;
 }
+.navbar{
+  border-radius: 0;
+}
 .row{
   margin-bottom: 15px;
 }
@@ -14,6 +17,9 @@ form{
 }
 textarea{
   min-height: 100px;
+}
+.jumbotron{
+  border: 1px solid #ccc;
 }
 #footer{
   background-color: #eee;

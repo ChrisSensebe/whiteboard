@@ -213,6 +213,17 @@ router.post('/deleteArticle', isAuthenticated, function(req, res){
     });
 });
 
+/* Others */
+
+// About
+router.get('/about',  function(req, res){
+    
+    res.render('pages/about', {
+        logged : req.isAuthenticated()
+    });
+    
+});
+
 // 404
 router.get('*', function(req, res){
     
