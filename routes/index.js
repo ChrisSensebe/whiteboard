@@ -175,8 +175,8 @@ router.post('/addArticle', isAuthenticated, function(req, res){
     });
 });
 
-// POST updateArticle
-router.post('/updateArticle', isAuthenticated, function(req, res){
+// POST updateAndExit
+router.post('/updateAndExit', isAuthenticated, function(req, res){
     
     //inputs
     var articleId       = req.body.id;

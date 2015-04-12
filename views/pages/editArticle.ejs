@@ -10,20 +10,16 @@
             <header>
                 <% include ../partials/header.ejs %>
             </header>
-            
             <div class="container">
-                
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="addArticle" name="addArticle" method="post" action="/updateArticle">
+                        <form id="addArticle" name="addArticle" method="post" action="/updateAndExit">
                             <legend>Edit article</legend>
                             <input type="hidden" name="id" value="<%= article._id %>" class="form-control">
                             <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>" class="form-control">
                             <textarea id="title" placeholder="Article" name="article" class="form-control"><%= article.section1 %></textarea>
-                            <button type="submit" class="btn btn-primary">Save article</button>
-                        </form>
-                        <form>
-                            <button href="/edit" class="btn btn-warning">Exit editor</button>
+                            <button type="submit" class="btn btn-primary">Save and exit</button>
+                            <button href="/edit" class="btn btn-warning">Exit without saving</button>
                         </form>
                         <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
                             <input type="hidden" name="id" value="<%= article._id %>">
@@ -31,8 +27,8 @@
                         </form>
                     </div>
                 </div>
-                
             </div>
+            
         </div>
         
         <footer id="footer">
