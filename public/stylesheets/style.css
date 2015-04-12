@@ -16,17 +16,42 @@ form{
   margin-bottom: 10px;
 }
 .jumbotron{
-  border: 1px solid #ccc;
+  border: 1px solid #e7e7e7;
 }
 #footer{
-  background-color: #eee;
-  border-top: 1px solid #ccc;
+  background-color: #f8f8f8;
+  border-top: 1px solid #e7e7e7;
 }
 #footer-text{
   padding-top: 20px;
 }
 
+/* TinyMCE */
+
+#mceu_13, #mceu_14, #mceu_19-body, #mceu_19, #mceu_20,#mceu_28, #mceu_28-body{
+  border-color :#e7e7e7;
+  background-color: #f8f8f8;
+}
+#mceu_13{
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+#mceu_14{
+  border-radius: 5px 5px 0 0;
+}
+#title_ifr{
+  min-height: 250px;
+}
+#mceu_28, #mceu_28-body{
+  border-radius: 0 0 5px 5px;
+}
+#mceu_19, #mceu_0, #mceu_1, #mceu_2, #mceu_3, #mceu_4, #mceu_5, #mceu_6, #mceu_7, #mceu_8, #mceu_9, #mceu_10, #mceu_11, #mceu_12{
+  background-image: none;
+  background-color: #f8f8f8;
+}
+
 /* Sticky footer */
+
 html, body{
   height: 100%;
 }
