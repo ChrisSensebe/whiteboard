@@ -8,6 +8,7 @@ Site engine
 * mongodb
 * mongoose
 * passport
+* TinyMCE
 
 ## License
 
