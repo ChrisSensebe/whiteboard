@@ -20,14 +20,10 @@
                             <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>" class="form-control">
                             <legend>Article</legend>
                             <textarea id="title" placeholder="Article" name="article" class="form-control"><%= article.articleBody %></textarea>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                         <form id="saveAndExit" name="saveAndExit">
-                            <input type="hidden" name="id" value="<%= article._id %>" class="form-control">
                             <button type="submit" class="btn btn-primary">Save and exit</button>
                         </form>
-                        <form id="exit" name="exit" method="get" action="/edit">
-                            <button type="submit" class="btn btn-warning">Exit without saving</button>
+                        <form>
+                            <a href="/edit" class="btn btn-warning">Exit without saving</a>
                         </form>
                         <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
                             <input type="hidden" name="id" value="<%= article._id %>">
