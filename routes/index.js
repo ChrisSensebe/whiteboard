@@ -68,8 +68,9 @@ router.get('/login', function(req, res){
     
     // display login page
     res.render('pages/login', {
-        logged : req.isAuthenticated(),
-        message : req.flash('message')
+        logged    : req.isAuthenticated(),
+        csrfToken : req.csrfToken(),
+        message   : req.flash('message')
     });
     
 });
@@ -79,7 +80,8 @@ router.get('/signup', function(req, res){
     
     //display login page
     res.render('pages/signup', {
-        logged : req.isAuthenticated(),
+        logged  : req.isAuthenticated(),
+        csrfToken : req.csrfToken(),
         message : req.flash('message')
     });
     
@@ -88,18 +90,18 @@ router.get('/signup', function(req, res){
 // POST login
 router.post('/login', passport.authenticate('login', {
     
-    successRedirect  : '/',
-    failureRedirect  : '/login',
-    failureFlash     : true
+    successRedirect : '/',
+    failureRedirect : '/login',
+    failureFlash    : true
     
 }));
 
 // POST register
 router.post('/signup', passport.authenticate('signup', {
     
-    successRedirect  : '/',
-    failureRedirect  : '/signup',
-    failureFlash     : true
+    successRedirect : '/',
+    failureRedirect : '/signup',
+    failureFlash    : true
     
 }));
 
@@ -119,9 +121,10 @@ router.get('/edit', isAuthenticated, function(req, res, next){
     //getting all articles in collection
     Article.find({}, function(e, docs){
        res.render('pages/edit', {
-           logged : req.isAuthenticated(),
-           title: 'Edit',
-           articles : docs
+           logged    : req.isAuthenticated(),
+           title     : 'Edit',
+           csrfToken : req.csrfToken(),
+           articles  : docs
        });
     });
     
@@ -130,8 +133,9 @@ router.get('/edit', isAuthenticated, function(req, res, next){
 // GET new article page
 router.get('/addArticle', isAuthenticated, function(req, res){
     res.render('pages/addArticle', {
-        logged : req.isAuthenticated(),
-        title: 'Add new article'
+        logged    : req.isAuthenticated(),
+        csrfToken : req.csrfToken(),
+        title     : 'Add new article'
     });
 });
 
@@ -145,8 +149,9 @@ router.get('/editArticle/:id', isAuthenticated, function(req, res){
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
         res.render('pages/editArticle', {
-            logged : req.isAuthenticated(),
-            article : doc
+            logged    : req.isAuthenticated(),
+            csrfToken : req.csrfToken(),
+            article   : doc
         });
     });
 });
@@ -155,7 +160,7 @@ router.get('/editArticle/:id', isAuthenticated, function(req, res){
 router.post('/addArticle', isAuthenticated, function(req, res){
     
     //inputs
-    var articleTitle    = req.body.title;
+    var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
     
     // create new Article

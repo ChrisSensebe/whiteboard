@@ -17,6 +17,7 @@
                     <div class="col-md-12">
                         <form id="addArticle" name="addArticle" method="post" action="/addArticle">
                             <legend>New article</legend>
+                            <% include ../partials/csrfToken.ejs %>
                             <input id="title" type="text" placeholder="Title" name="title" class="form-control">
                             <textarea id="title" placeholder="Article" name="article" class="form-control"></textarea>
                             <button type="submit" class="btn btn-primary">Create</button>

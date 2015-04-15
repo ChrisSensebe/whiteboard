@@ -1,23 +1,28 @@
-var express        = require('express');
-var path           = require('path');
-var favicon        = require('serve-favicon');
-var logger         = require('morgan');
-var cookieParser   = require('cookie-parser');
-var bodyParser     = require('body-parser');
+var express          = require('express');
+var path             = require('path');
+var favicon          = require('serve-favicon');
+var logger           = require('morgan');
+var cookieParser     = require('cookie-parser');
+var bodyParser       = require('body-parser');
 // router
-var routes         = require('./routes/index');
+var routes           = require('./routes/index');
 // sessions & authenticating
-var passport       = require('passport');
+var passport         = require('passport');
 // passwortd init
-var initPassword   = require('./passport/init'); 
-var expressSession = require('express-session');
+var initPassword     = require('./passport/init'); 
+var expressSession   = require('express-session');
 // database
-var mongoose       = require('mongoose');
+var mongoose         = require('mongoose');
 // config file: config.js
-var config         = require('./config');
+var config           = require('./config');
 // using flash middleware to store messages in session
-var flash = require('connect-flash');
-var app            = express();
+var flash            = require('connect-flash');
+// csurf against csrf
+var csurf            = require('csurf');
+
+// application
+var app              = express();
+
 
 // database connection
 mongoose.connect(config.databaseUrl);
@@ -40,6 +45,7 @@ app.use(expressSession({
   secret: config.secret,
   saveUninitialized: true,
   resave: true}));
+app.use(csurf());
 app.use(passport.initialize());
 app.use(passport.session());
 

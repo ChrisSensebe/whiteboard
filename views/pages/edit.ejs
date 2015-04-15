@@ -20,6 +20,7 @@
                             <h3><%= article.title %></h3>
                             <a href="/editArticle/<%= article._id %>">Edit</a><br>
                             <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
+                                <% include ../partials/csrfToken.ejs %>
                                 <input type="hidden" name="id" value="<%= article._id %>">
                                 <button type='submit' class="btn btn-danger">Delete article</button>
                             </form>

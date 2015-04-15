@@ -16,6 +16,7 @@
                     <div class="col-md-12">
                         <form id="addArticle" name="addArticle" method="post" action="/update">
                             <legend>Article title</legend>
+                            <% include ../partials/csrfToken.ejs %>
                             <input type="hidden" name="id" value="<%= article._id %>" class="form-control">
                             <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>" class="form-control">
                             <legend>Article</legend>
@@ -26,6 +27,7 @@
                             <a href="/edit" class="btn btn-warning">Exit without saving</a>
                         </form>
                         <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
+                            <% include ../partials/csrfToken.ejs %>
                             <input type="hidden" name="id" value="<%= article._id %>">
                             <button type='submit' class="btn btn-danger">Delete article</button>
                         </form>

@@ -17,6 +17,7 @@
                         <h1><%= message %></h1>
                         <form action="/signup" method="POST">
                             <legend>Signup</legend>
+                            <% include ../partials/csrfToken.ejs %>
                             <input type="text" name="username" placeholder="username" autofocus required class="form-control">
                             <input type="text" name="password" placeholder="password" required class="form-control">
                             <input type="text" name="email" placeholder="email" required class="form-control">
