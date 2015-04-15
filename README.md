@@ -1,14 +1,11 @@
 # Whiteboard
 
-Site engine
+Generic web app
 
 ## Using
 
-* express
+* expressJs
 * mongodb
-* mongoose
-* passport
-* TinyMCE
 
 ## License
 
