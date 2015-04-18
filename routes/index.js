@@ -4,6 +4,8 @@ var Article         = require('../models/article');
 var isAuthenticated = require('../middlewares/isAuthenticated')
 var router          = express.Router();
 
+/* Routes functions */
+
 // GET home page
 function getHome(req, res){
     // getting all articles in collection
@@ -169,7 +171,9 @@ function get404(req, res){
     }
 }
 
-/* GET routes */
+/* Routes */
+
+// GET routes
 router.get('/',                getHome);
 router.get('/article/:id',     getArticleById);
 router.get('/login',           getLogin);
@@ -181,7 +185,7 @@ router.get('/editArticle/:id', getEditArticleById);
 router.get('/about',           getAbout);
 router.get('*',                get404);
 
-/* POST routes */
+// POST routes
 router.post('/addArticle',    postAddArticle);
 router.post('/update',        postUpdateArticle);
 router.post('/deleteArticle', postDeleteArticle);
