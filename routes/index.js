@@ -119,7 +119,7 @@ function postAddArticle(req, res){
 // POST update
 function postUpdateArticle(req, res){
     //inputs
-    var articleId          = req.body.id;
+    var articleId          = req.body.articleId;
     var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
     
@@ -138,7 +138,7 @@ function postUpdateArticle(req, res){
 // POST deleteArticle
 function postDeleteArticle(req, res){
     //inputs
-    var articleId = req.body.id;
+    var articleId = req.body.articleId;
     console.log(articleId);
     
     // find article and delete
