@@ -3,6 +3,8 @@ var Article  = require('../models/article');
 var passport = require('passport');
 var router   = express.Router();
 
+
+/* todo : move middlewares to another file */
 /* route middleware to validate : id */
 
 router.param('id', function(req, res, next, id){
@@ -29,63 +31,51 @@ var isAuthenticated = function(req, res, next){
     
 };
 
-/* site routes */
-
 // GET home page
-router.get('/', function(req, res, next){
-    
+function getHome(req, res){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('pages/index', {
-            logged : req.isAuthenticated(),
-            title : 'Articles',
+            logged :   req.isAuthenticated(),
+            title :    'Articles',
             articles : docs
         });
     });
-    
-});
+}
 
-// GET article page
-router.get('/article/:id', function(req, res){
-    
+// GET article page by id
+function getArticleById(req, res){
     // getting 'id' atribute
     var id = req.id;
     // getting entry that match 'title'
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
-        res.render('pages/article', {
-            logged : req.isAuthenticated(),
+        res.render(   'pages/article', {
+            logged :  req.isAuthenticated(),
             article : doc
         });
     });
-    
-});
-
-/* login & signup routes */
+}
 
 // GET login page
-router.get('/login', function(req, res){
-    
+function getLogin(req, res){
     // display login page
     res.render('pages/login', {
         logged    : req.isAuthenticated(),
         csrfToken : req.csrfToken(),
         message   : req.flash('message')
     });
-    
-});
+}
 
 // GET signup page
-router.get('/signup', function(req, res){
-    
+function getSignup(req, res){
     //display login page
     res.render('pages/signup', {
-        logged  : req.isAuthenticated(),
+        logged  :   req.isAuthenticated(),
         csrfToken : req.csrfToken(),
-        message : req.flash('message')
+        message :   req.flash('message')
     });
-    
-});
+}
 
 // POST login
 router.post('/login', passport.authenticate('login', {
@@ -106,18 +96,13 @@ router.post('/signup', passport.authenticate('signup', {
 }));
 
 // GET logout
-router.get('/logout', function(req, res) {
-    
+function getLogout(req, res) {
     req.logout();
     res.redirect('/');
-    
-});
-
-/* edit routes */
+}
 
 // GET edit index page
-router.get('/edit', isAuthenticated, function(req, res, next){
-    
+function getEdit(req, res){
     //getting all articles in collection
     Article.find({}, function(e, docs){
        res.render('pages/edit', {
@@ -127,21 +112,19 @@ router.get('/edit', isAuthenticated, function(req, res, next){
            articles  : docs
        });
     });
-    
-});
+}
 
 // GET new article page
-router.get('/addArticle', isAuthenticated, function(req, res){
+function getAddArticle(req, res){
     res.render('pages/addArticle', {
         logged    : req.isAuthenticated(),
         csrfToken : req.csrfToken(),
         title     : 'Add new article'
     });
-});
+}
 
 // GET edit article page
-router.get('/editArticle/:id', isAuthenticated, function(req, res){
-
+function getEditArticleById(req, res){
     // getting 'id' atribute
     var id = req.id;
     console.log(id);
@@ -154,11 +137,10 @@ router.get('/editArticle/:id', isAuthenticated, function(req, res){
             article   : doc
         });
     });
-});
+}
 
 // POST addArticle
-router.post('/addArticle', isAuthenticated, function(req, res){
-    
+function postAddArticle(req, res){
     //inputs
     var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
@@ -178,14 +160,13 @@ router.post('/addArticle', isAuthenticated, function(req, res){
     res.location('/edit');
     res.redirect('/edit');
     });
-});
+}
 
 // POST update
-router.post('/update', isAuthenticated, function(req, res){
-    
+function postUpdateArticle(req, res){
     //inputs
-    var articleId       = req.body.id;
-    var articleTitle    = req.body.title;
+    var articleId          = req.body.id;
+    var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
     
     // find article and update
@@ -198,11 +179,10 @@ router.post('/update', isAuthenticated, function(req, res){
         res.location('/edit');
         res.redirect('/edit');
     });
-});
+}
 
 // POST deleteArticle
-router.post('/deleteArticle', isAuthenticated, function(req, res){
-    
+function postDeleteArticle(req, res){
     //inputs
     var articleId = req.body.id;
     
@@ -216,27 +196,39 @@ router.post('/deleteArticle', isAuthenticated, function(req, res){
         res.location('/edit');
         res.redirect('/edit');
     });
-});
-
-/* Others */
+}
 
 // About
-router.get('/about',  function(req, res){
-    
+function getAbout(req, res){
     res.render('pages/about', {
         logged : req.isAuthenticated()
     });
-    
-});
+}
 
 // 404
-router.get('*', function(req, res){
-    
+function get404(req, res){
     if(req.accepts('html')){
         res.render('pages/404', {
             logged : req.isAuthenticated()
         });
     }
-});
+}
+
+/* GET routes */
+router.get('/',                getHome);
+router.get('/article/:id',     getArticleById);
+router.get('/login',           getLogin);
+router.get('/signup',          getSignup);
+router.get('/logout',          getLogout);
+router.get('/edit',            getEdit);
+router.get('/addArticle',      getAddArticle);
+router.get('/editArticle/:id', getEditArticleById);
+router.get('/about',           getAbout);
+router.get('*',                get404);
+
+/* POST routes */
+router.post('/addArticle',    postAddArticle);
+router.post('/update',        postUpdateArticle);
+router.post('/deleteArticle', postDeleteArticle);
 
 module.exports = router;
