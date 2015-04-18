@@ -1,35 +1,8 @@
-var express  = require('express');
-var Article  = require('../models/article');
-var passport = require('passport');
-var router   = express.Router();
-
-
-/* todo : move middlewares to another file */
-/* route middleware to validate : id */
-
-router.param('id', function(req, res, next, id){
-    
-    // todo : validations
-    
-    req.id = id;
-    //go to next thing
-    next();
-    
-});
-
-/* middleware to check authentication */
-
-var isAuthenticated = function(req, res, next){
-    
-    // user is authenticated, call next()
-    if(req.isAuthenticated()){
-        return next();
-    }
-    
-    // if not redirect to login
-    res.redirect('/login');
-    
-};
+var express         = require('express');
+var passport        = require('passport');
+var Article         = require('../models/article');
+var isAuthenticated = require('../middlewares/isAuthenticated')
+var router          = express.Router();
 
 // GET home page
 function getHome(req, res){
@@ -46,7 +19,7 @@ function getHome(req, res){
 // GET article page by id
 function getArticleById(req, res){
     // getting 'id' atribute
-    var id = req.id;
+    var id = req.params.id;
     // getting entry that match 'title'
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
@@ -76,24 +49,6 @@ function getSignup(req, res){
         message :   req.flash('message')
     });
 }
-
-// POST login
-router.post('/login', passport.authenticate('login', {
-    
-    successRedirect : '/',
-    failureRedirect : '/login',
-    failureFlash    : true
-    
-}));
-
-// POST register
-router.post('/signup', passport.authenticate('signup', {
-    
-    successRedirect : '/',
-    failureRedirect : '/signup',
-    failureFlash    : true
-    
-}));
 
 // GET logout
 function getLogout(req, res) {
@@ -126,8 +81,7 @@ function getAddArticle(req, res){
 // GET edit article page
 function getEditArticleById(req, res){
     // getting 'id' atribute
-    var id = req.id;
-    console.log(id);
+    var id = req.params.id;
     // getting entry that match 'title'
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
@@ -185,6 +139,7 @@ function postUpdateArticle(req, res){
 function postDeleteArticle(req, res){
     //inputs
     var articleId = req.body.id;
+    console.log(articleId);
     
     // find article and delete
     Article.findByIdAndRemove(articleId, function(err){
@@ -230,5 +185,15 @@ router.get('*',                get404);
 router.post('/addArticle',    postAddArticle);
 router.post('/update',        postUpdateArticle);
 router.post('/deleteArticle', postDeleteArticle);
+router.post('/signup',        passport.authenticate('signup', {
+    successRedirect : '/',
+    failureRedirect : '/signup',
+    failureFlash    : true
+}));
+router.post('/login',         passport.authenticate('login', {
+    successRedirect : '/',
+    failureRedirect : '/login',
+    failureFlash    : true
+}));
 
 module.exports = router;
