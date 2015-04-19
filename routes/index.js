@@ -1,7 +1,6 @@
 var express         = require('express');
-var passport        = require('passport');
 var Article         = require('../models/article');
-var isAuthenticated = require('../middlewares/isAuthenticated')
+var isAuthenticated = require('../middlewares/isAuthenticated');
 var router          = express.Router();
 
 /* Routes functions */
@@ -11,7 +10,6 @@ function getHome(req, res){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('pages/index', {
-            logged :   req.isAuthenticated(),
             title :    'Articles',
             articles : docs
         });
@@ -26,7 +24,6 @@ function getArticleById(req, res){
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
         res.render(   'pages/article', {
-            logged :  req.isAuthenticated(),
             article : doc
         });
     });
@@ -36,7 +33,6 @@ function getArticleById(req, res){
 function getLogin(req, res){
     // display login page
     res.render('pages/login', {
-        logged    : req.isAuthenticated(),
         csrfToken : req.csrfToken(),
         message   : req.flash('message')
     });
@@ -46,7 +42,6 @@ function getLogin(req, res){
 function getSignup(req, res){
     //display login page
     res.render('pages/signup', {
-        logged  :   req.isAuthenticated(),
         csrfToken : req.csrfToken(),
         message :   req.flash('message')
     });
@@ -63,7 +58,6 @@ function getEdit(req, res){
     //getting all articles in collection
     Article.find({}, function(e, docs){
        res.render('pages/edit', {
-           logged    : req.isAuthenticated(),
            title     : 'Edit',
            csrfToken : req.csrfToken(),
            articles  : docs
@@ -74,7 +68,6 @@ function getEdit(req, res){
 // GET new article page
 function getAddArticle(req, res){
     res.render('pages/addArticle', {
-        logged    : req.isAuthenticated(),
         csrfToken : req.csrfToken(),
         title     : 'Add new article'
     });
@@ -88,7 +81,6 @@ function getEditArticleById(req, res){
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
         res.render('pages/editArticle', {
-            logged    : req.isAuthenticated(),
             csrfToken : req.csrfToken(),
             article   : doc
         });
@@ -155,49 +147,42 @@ function postDeleteArticle(req, res){
     });
 }
 
-// About
-function getAbout(req, res){
-    res.render('pages/about', {
-        logged : req.isAuthenticated()
-    });
+// POST login
+function postLogin(req, res){
+    if(req.body.username){
+        req.session.username = req.body.username;
+        res.redirect('/edit');
+    }
+    else{
+        res.redirect('/');
+    }
 }
 
-// 404
-function get404(req, res){
-    if(req.accepts('html')){
-        res.render('pages/404', {
-            logged : req.isAuthenticated()
-        });
-    }
+// About
+function getAbout(req, res){
+    res.render('pages/about');
 }
 
 /* Routes */
 
-// GET routes
-router.get('/',                getHome);
-router.get('/article/:id',     getArticleById);
-router.get('/login',           getLogin);
-router.get('/signup',          getSignup);
+// Unprotected routes
+router.get('/',            getHome);
+router.get('/article/:id', getArticleById);
+router.get('/login',       getLogin);
+router.get('/signup',      getSignup);
+router.post('/login',      postLogin);
+
+// Ensure authentication
+router.all('/*', isAuthenticated);
+
+// Protected routes
 router.get('/logout',          getLogout);
 router.get('/edit',            getEdit);
 router.get('/addArticle',      getAddArticle);
 router.get('/editArticle/:id', getEditArticleById);
 router.get('/about',           getAbout);
-router.get('*',                get404);
-
-// POST routes
-router.post('/addArticle',    postAddArticle);
-router.post('/update',        postUpdateArticle);
-router.post('/deleteArticle', postDeleteArticle);
-router.post('/signup',        passport.authenticate('signup', {
-    successRedirect : '/',
-    failureRedirect : '/signup',
-    failureFlash    : true
-}));
-router.post('/login',         passport.authenticate('login', {
-    successRedirect : '/',
-    failureRedirect : '/login',
-    failureFlash    : true
-}));
+router.post('/addArticle',     postAddArticle);
+router.post('/update',         postUpdateArticle);
+router.post('/deleteArticle',  postDeleteArticle);
 
 module.exports = router;

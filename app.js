@@ -7,9 +7,6 @@ var bodyParser       = require('body-parser');
 // router
 var routes           = require('./routes/index');
 // sessions & authenticating
-var passport         = require('passport');
-// passwortd init
-var initPassword     = require('./passport/init'); 
 var expressSession   = require('express-session');
 // database
 var mongoose         = require('mongoose');
@@ -35,30 +32,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// session
 app.use(expressSession({
   secret: config.secret,
   saveUninitialized: true,
   resave: true}));
-// protection against crsf
 app.use(csurf());
-// passport
-app.use(passport.initialize());
-app.use(passport.session());
-initPassword(passport);
-// routes
-app.use('/', routes);
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
 
 // development error handler
 // will print stacktrace
