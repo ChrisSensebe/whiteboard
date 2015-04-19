@@ -19,10 +19,8 @@ var config           = require('./config');
 var flash            = require('connect-flash');
 // csurf against csrf
 var csurf            = require('csurf');
-
 // application
 var app              = express();
-
 
 // database connection
 mongoose.connect(config.databaseUrl);
@@ -37,22 +35,21 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// routes
-app.use('/', routes);
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash());
-
-// session & authenticating
+// session
 app.use(expressSession({
   secret: config.secret,
   saveUninitialized: true,
   resave: true}));
+// protection against crsf
 app.use(csurf());
+// passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// initializing password
 initPassword(passport);
+// routes
+app.use('/', routes);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
