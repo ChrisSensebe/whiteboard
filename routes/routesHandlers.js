@@ -1,12 +1,7 @@
-var express         = require('express');
 var Article         = require('../models/article');
-var isAuthenticated = require('../middlewares/isAuthenticated');
-var router          = express.Router();
-
-/* Routes functions */
 
 // GET home page
-function getHome(req, res){
+exports.getHome = function getHome(req, res){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('pages/index', {
@@ -14,10 +9,10 @@ function getHome(req, res){
             articles : docs
         });
     });
-}
+};
 
 // GET article page by id
-function getArticleById(req, res){
+exports.getArticleById = function getArticleById(req, res){
     // getting 'id' atribute
     var id = req.params.id;
     // getting entry that match 'title'
@@ -27,34 +22,34 @@ function getArticleById(req, res){
             article : doc
         });
     });
-}
+};
 
 // GET login page
-function getLogin(req, res){
+exports.getLogin = function getLogin(req, res){
     // display login page
     res.render('pages/login', {
         csrfToken : req.csrfToken(),
         message   : req.flash('message')
     });
-}
+};
 
 // GET signup page
-function getSignup(req, res){
+exports.getSignup = function getSignup(req, res){
     //display login page
     res.render('pages/signup', {
         csrfToken : req.csrfToken(),
         message :   req.flash('message')
     });
-}
+};
 
 // GET logout
-function getLogout(req, res) {
+exports.getLogout = function getLogout(req, res) {
     req.logout();
     res.redirect('/');
-}
+};
 
 // GET edit index page
-function getEdit(req, res){
+exports.getEdit = function getEdit(req, res){
     //getting all articles in collection
     Article.find({}, function(e, docs){
        res.render('pages/edit', {
@@ -63,18 +58,18 @@ function getEdit(req, res){
            articles  : docs
        });
     });
-}
+};
 
 // GET new article page
-function getAddArticle(req, res){
+exports.getAddArticle = function getAddArticle(req, res){
     res.render('pages/addArticle', {
         csrfToken : req.csrfToken(),
         title     : 'Add new article'
     });
-}
+};
 
 // GET edit article page
-function getEditArticleById(req, res){
+exports.getEditArticleById = function getEditArticleById(req, res){
     // getting 'id' atribute
     var id = req.params.id;
     // getting entry that match 'title'
@@ -85,10 +80,10 @@ function getEditArticleById(req, res){
             article   : doc
         });
     });
-}
+};
 
 // POST addArticle
-function postAddArticle(req, res){
+exports.postAddArticle = function postAddArticle(req, res){
     //inputs
     var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
@@ -108,10 +103,10 @@ function postAddArticle(req, res){
     res.location('/edit');
     res.redirect('/edit');
     });
-}
+};
 
 // POST update
-function postUpdateArticle(req, res){
+exports.postUpdateArticle = function postUpdateArticle(req, res){
     //inputs
     var articleId          = req.body.articleId;
     var articleTitle       = req.body.title;
@@ -127,10 +122,10 @@ function postUpdateArticle(req, res){
         res.location('/edit');
         res.redirect('/edit');
     });
-}
+};
 
 // POST deleteArticle
-function postDeleteArticle(req, res){
+exports.postDeleteArticle = function postDeleteArticle(req, res){
     //inputs
     var articleId = req.body.articleId;
     console.log(articleId);
@@ -145,10 +140,10 @@ function postDeleteArticle(req, res){
         res.location('/edit');
         res.redirect('/edit');
     });
-}
+};
 
 // POST login
-function postLogin(req, res){
+exports.postLogin = function postLogin(req, res){
     if(req.body.username){
         req.session.username = req.body.username;
         res.redirect('/edit');
@@ -156,33 +151,9 @@ function postLogin(req, res){
     else{
         res.redirect('/');
     }
-}
+};
 
 // About
-function getAbout(req, res){
+exports.getAbout = function getAbout(req, res){
     res.render('pages/about');
-}
-
-/* Routes */
-
-// Unprotected routes
-router.get('/',            getHome);
-router.get('/article/:id', getArticleById);
-router.get('/login',       getLogin);
-router.get('/signup',      getSignup);
-router.post('/login',      postLogin);
-
-// Ensure authentication
-router.all('/*', isAuthenticated);
-
-// Protected routes
-router.get('/logout',          getLogout);
-router.get('/edit',            getEdit);
-router.get('/addArticle',      getAddArticle);
-router.get('/editArticle/:id', getEditArticleById);
-router.get('/about',           getAbout);
-router.post('/addArticle',     postAddArticle);
-router.post('/update',         postUpdateArticle);
-router.post('/deleteArticle',  postDeleteArticle);
-
-module.exports = router;
+};

@@ -6,7 +6,7 @@ var isAuthenticated = function(req, res, next){
     if(req.session.username){
         return next();
     }
-    // if not redirect home
+    // if not redirect to login
     res.redirect('/login');
     
 };
