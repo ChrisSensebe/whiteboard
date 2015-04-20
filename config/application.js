@@ -11,7 +11,7 @@ var express        = require('express'),
     flash          = require('connect-flash'),
     csurf          = require('csurf');
 
-console.log('Loading Whiteboard.');
+console.log('Loading Whiteboard...');
 
 global.App = {
     app     : express(),
@@ -25,13 +25,13 @@ global.App = {
         if(!this.started){
             this.started = true;
             this.app.listen(this.port);
-            console.log('Running App version ' + App.version + ' on port ' + App.port + ' in ' + App.env + ' mode.');
+            console.log('Running App version: ' + App.version + ', on port: ' + App.port + ', in ' + App.env + ' mode.');
         }
     }
 };
 
 // database connection
-mongoose.connect(process.env.IP + '/whiteboard');
+App.require('config/database')(process.env.IP + '/whiteboard');
 
 // view engine setup
 App.app.set('views', App.appPath('views'));
