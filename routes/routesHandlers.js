@@ -128,7 +128,6 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
 exports.postDeleteArticle = function postDeleteArticle(req, res){
     //inputs
     var articleId = req.body.articleId;
-    console.log(articleId);
     
     // find article and delete
     Article.findByIdAndRemove(articleId, function(err){
