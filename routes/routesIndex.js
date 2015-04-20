@@ -1,5 +1,5 @@
 var express         = require('express');
-var isAuthenticated = require('../middlewares/isAuthenticated');
+var authentication  = require('../middlewares/isAuthenticated');
 var handlers        = require("./routesHandlers");
 var router          = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/signup',      handlers.getSignup);
 router.post('/login',      handlers.postLogin);
 
 // Ensure authentication
-router.all('/*', isAuthenticated);
+router.all('/*', authentication.isAuthenticated);
 
 // Protected routes
 router.get('/logout',          handlers.getLogout);
