@@ -1,7 +1,7 @@
 {
   "name": "whiteboard",
   "author": "Christophe Sensebé <christophe.sensebe@gmail.com",
-  "description": "site engine",
+  "description": "generic web app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
