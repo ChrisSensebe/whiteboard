@@ -4,8 +4,7 @@ var SALT_WORK_FACTOR         = 10;
 var REQUIRED_PASSWORD_LENGTH = 8;
 
 var schema = mongoose.Schema({
-   username     : {type : String, required : true, unique : true},
-   email        : {type : String, required : true},
+   email        : {type : String, required : true, unique : true},
    passwordHash : {type : String, required : true}
 });
 
@@ -26,7 +25,7 @@ schema.pre('save', function(next){
 });
 
 schema.statics.findByUsernameAndPassword = function findByUsernameAndPassword(email, password, cb){
-   this.findOne({email: email}, function(err, user){
+   this.findOne({email : email}, function(err, user){
       if(err){
          return cb(err);
       }

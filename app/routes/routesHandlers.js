@@ -146,7 +146,7 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 
 // POST login
 exports.postLogin = function postLogin(req, res){
-    User.findByUsernameAndPassword(req.body.username, req.body.password, function(err, user){
+    User.findByUsernameAndPassword(req.body.email, req.body.password, function(err, user){
         if(err){
             res.status(422).send('Problem:', err.message);
         }
@@ -162,7 +162,6 @@ exports.postLogin = function postLogin(req, res){
 // POST signup
 exports.postSignup = function postSignup(req, res){
     var user = new User({
-        username     : req.body.username,
         email        : req.body.email,
         passwordHash : req.body.password
     });
