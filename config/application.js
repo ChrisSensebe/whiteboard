@@ -2,7 +2,7 @@ var express        = require('express'),
     packageJson    = require('../package.json'),
     path           = require('path'),
     env            = process.env.NODE_ENV || 'development',
-    routes         = require('../routes/routesIndex'),
+    routes         = require('../app/routes/routesIndex'),
     favicon        = require('serve-favicon'),
     bodyParser     = require('body-parser'),
     cookieParser   = require('cookie-parser'),
@@ -32,7 +32,7 @@ global.App = {
 App.require('config/database')(process.env.IP + '/whiteboard');
 
 // view engine setup
-App.app.set('views', App.appPath('views'));
+App.app.set('views', App.appPath('app/views'));
 App.app.set('view engine', 'ejs');
 
 /* Middlewares */ 
