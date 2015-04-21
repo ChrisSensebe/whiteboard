@@ -30,7 +30,6 @@ exports.getLogin = function getLogin(req, res){
     // display login page
     res.render('pages/login', {
         csrfToken : req.csrfToken(),
-        message   : req.flash('message')
     });
 };
 
@@ -39,7 +38,6 @@ exports.getSignup = function getSignup(req, res){
     //display login page
     res.render('pages/signup', {
         csrfToken : req.csrfToken(),
-        message :   req.flash('message')
     });
 };
 

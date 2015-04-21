@@ -7,7 +7,6 @@ var express        = require('express'),
     bodyParser     = require('body-parser'),
     cookieParser   = require('cookie-parser'),
     expressSession = require('express-session'),
-    flash          = require('connect-flash'),
     csurf          = require('csurf');
 
 console.log('Loading Whiteboard...');
@@ -48,6 +47,5 @@ App.app.use(expressSession({
   saveUninitialized: true,
   resave: true}));
 App.app.use(csurf());
-App.app.use(flash());
 App.app.use(express.static(App.appPath('public')));
 App.app.use('/', routes);
