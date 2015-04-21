@@ -1,4 +1,5 @@
-var Article         = require('../models/article');
+var Article = require('../models/article');
+var User    = require('../models/user');
 
 // GET home page
 exports.getHome = function getHome(req, res){
@@ -152,7 +153,25 @@ exports.postLogin = function postLogin(req, res){
     }
 };
 
-// About
+// GET about
 exports.getAbout = function getAbout(req, res){
     res.render('pages/about');
+};
+
+// POST signup
+exports.postSignup = function postSignup(req, res){
+    var user = new User({
+        username : req.body.username,
+        email    : req.body.email,
+        password : req.body.password
+    });
+    user.save(function(err){
+        if(err){
+            res.status(422).send('Problem ' + err.message);
+        }
+        else{
+            req.session.username = req.body.username;
+            res.redirect('/');
+        }
+    })
 };

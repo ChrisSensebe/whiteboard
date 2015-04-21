@@ -8,6 +8,7 @@ router.get('/',            handlers.getHome);
 router.get('/article/:id', handlers.getArticleById);
 router.get('/login',       handlers.getLogin);
 router.get('/signup',      handlers.getSignup);
+router.post('/signup',     handlers.postSignup);
 router.post('/login',      handlers.postLogin);
 
 // Ensure authentication
