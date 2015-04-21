@@ -1,4 +1,5 @@
 .c9/
 data/
 npm-debug.log
+mongod
 TODO.md
