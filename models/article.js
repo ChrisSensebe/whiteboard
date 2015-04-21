@@ -5,4 +5,6 @@ var schema   = mongoose.Schema({
    articleBody : String
 });
 
+schema.set('autoIndex', false);
+
 module.exports = mongoose.model('Article', schema);

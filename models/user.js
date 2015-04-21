@@ -6,4 +6,6 @@ var schema   = mongoose.Schema({
    password : String
 });
 
+schema.set('autoIndex', false);
+
 module.exports = mongoose.model('User', schema);
