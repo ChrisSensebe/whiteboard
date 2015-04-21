@@ -81,6 +81,11 @@ exports.getEditArticleById = function getEditArticleById(req, res){
     });
 };
 
+// GET about
+exports.getAbout = function getAbout(req, res){
+    res.render('pages/about');
+};
+
 // POST addArticle
 exports.postAddArticle = function postAddArticle(req, res){
     //inputs
@@ -116,7 +121,6 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
         if(err){
             console.log(err);
         }
-        
         //redirect to edit
         res.location('/edit');
         res.redirect('/edit');
@@ -142,34 +146,32 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 
 // POST login
 exports.postLogin = function postLogin(req, res){
-    if(req.body.username){
-        req.session.username = req.body.username;
-        res.redirect('/edit');
-    }
-    else{
-        res.redirect('/');
-    }
-};
-
-// GET about
-exports.getAbout = function getAbout(req, res){
-    res.render('pages/about');
+    User.findByUsernameAndPassword(req.body.username, req.body.password, function(err, user){
+        if(err){
+            res.status(422).send('Problem:', err.message);
+        }
+        else if(!user){
+            res.status(401).send('username and password don\'t match');
+        }
+        else{
+            res.status(200).send('Welcome back');
+        }
+    });
 };
 
 // POST signup
 exports.postSignup = function postSignup(req, res){
     var user = new User({
-        username : req.body.username,
-        email    : req.body.email,
-        password : req.body.password
+        username     : req.body.username,
+        email        : req.body.email,
+        passwordHash : req.body.password
     });
     user.save(function(err){
         if(err){
-            res.status(422).send('Problem ' + err.message);
+            res.status(422).send('Problem: ' + err.message);
         }
         else{
-            req.session.username = req.body.username;
-            res.redirect('/');
+            res.status(200).send('Welcome');
         }
-    })
+    });
 };
