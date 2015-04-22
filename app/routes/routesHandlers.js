@@ -144,11 +144,3 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
         res.redirect('/edit');
     });
 };
-
-// POST login
-exports.postLogin = function postLogin(req, res){
-};
-
-// POST signup
-exports.postSignup = function postSignup(req, res){
-};
