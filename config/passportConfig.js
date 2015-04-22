@@ -29,7 +29,7 @@ module.exports = function(passport){
                     return cb(err);
                 }
                 if(user){
-                    return cb(null, false, req.flash('signupMesssage', 'user already exists'));
+                    return cb(null, false, req.flash('warning', 'user already exists'));
                 }
                 var newUser = new User;
                 newUser.email = email;
@@ -59,10 +59,10 @@ module.exports = function(passport){
                 return cb(err);
             }
             if(!user){
-                return cb(null, false, req.flash('loginMessage', 'user not found'));
+                return cb(null, false, req.flash('warning', 'user not found'));
             }
             if(!user.validPassword(password)){
-                return cb(null, false, req.flash('loginMessage', 'invalid password'));
+                return cb(null, false, req.flash('warning', 'invalid password'));
             }
             return cb(null, user);
         });

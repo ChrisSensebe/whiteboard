@@ -5,8 +5,9 @@ exports.getHome = function getHome(req, res){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('pages/index', {
-            title :    'Articles',
-            articles : docs
+            title    :    'Articles',
+            articles : docs,
+            message  : req.flash('succes')
         });
     });
 };
@@ -43,6 +44,7 @@ exports.getSignup = function getSignup(req, res){
 // GET logout
 exports.getLogout = function getLogout(req, res) {
     req.logout();
+    req.flash('succes', 'You have successfully signed out.');
     res.redirect('/');
 };
 

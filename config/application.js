@@ -51,9 +51,9 @@ App.app.use(expressSession({
   secret: 'Top secret Trololo',
   saveUninitialized: true,
   resave: true}));
-App.app.use(flash());
 App.app.use(passport.initialize());
 App.app.use(passport.session());
+App.app.use(flash());
 App.app.use(csurf());
 App.app.use(express.static(App.appPath('public')));
 App.app.use('/', routes);
