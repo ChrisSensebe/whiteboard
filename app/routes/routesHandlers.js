@@ -1,5 +1,5 @@
-var Article = require('../models/article');
-var User    = require('../models/user');
+var Article = require('../models/article'),
+    User    = require('../models/user');
 
 // GET home page
 exports.getHome = function getHome(req, res){
@@ -146,7 +146,7 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 
 // POST login
 exports.postLogin = function postLogin(req, res){
-    User.findByUsernameAndPassword(req.body.email, req.body.password, function(err, user){
+    User.findByEmailAndPassword(req.body.email, req.body.password, function(err, user){
         if(err){
             res.status(422).send('Problem:', err.message);
         }
