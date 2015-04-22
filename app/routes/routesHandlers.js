@@ -1,6 +1,4 @@
-var Article = require('../models/article'),
-    bcrypt  = require('bcrypt'),
-    User    = require('../models/user');
+var Article = require('../models/article');
 
 // GET home page
 exports.getHome = function getHome(req, res){
