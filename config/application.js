@@ -37,6 +37,9 @@ App.require('config/database')(process.env.IP + '/whiteboard');
 App.app.set('views', App.appPath('app/views'));
 App.app.set('view engine', 'ejs');
 
+// passport config file
+App.require('config/passportConfig')(passport);
+
 /* Middlewares */ 
 
 // uncomment after placing your favicon in /public
@@ -48,9 +51,9 @@ App.app.use(expressSession({
   secret: 'Top secret Trololo',
   saveUninitialized: true,
   resave: true}));
+App.app.use(flash());
 App.app.use(passport.initialize());
 App.app.use(passport.session());
-App.app.use(flash());
 App.app.use(csurf());
 App.app.use(express.static(App.appPath('public')));
 App.app.use('/', routes);
