@@ -1,7 +1,5 @@
-var mongoose                 = require('mongoose');
-var bcrypt                   = require('bcrypt');
-var SALT_WORK_FACTOR         = 10;
-var REQUIRED_PASSWORD_LENGTH = 8;
+var mongoose        = require('mongoose'),
+   bcrypt           = require('bcrypt');
 
 var schema = mongoose.Schema({
    email        : {type : String, required : true, unique : true},
@@ -12,12 +10,12 @@ var schema = mongoose.Schema({
 
 // generate hash
 schema.methods.generateHash = function(password){
-   return bcrypt.hash(password, SALT_WORK_FACTOR, null);
+   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
 // chek if password is valid
-schema.methods.isValidPassword = function(password){
-   return bcrypt.compare(password, this.local.password);
+schema.methods.validPassword = function(password){
+   return bcrypt.compareSync(password, this.passwordHash);
 };
 
 module.exports = mongoose.model('User', schema);
