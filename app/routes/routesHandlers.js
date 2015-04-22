@@ -1,4 +1,5 @@
 var Article = require('../models/article'),
+    bcrypt  = require('bcrypt'),
     User    = require('../models/user');
 
 // GET home page
@@ -146,31 +147,8 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 
 // POST login
 exports.postLogin = function postLogin(req, res){
-    User.findByEmailAndPassword(req.body.email, req.body.password, function(err, user){
-        if(err){
-            res.status(422).send('Problem:', err.message);
-        }
-        else if(!user){
-            res.status(401).send('username and password don\'t match');
-        }
-        else{
-            res.status(200).send('Welcome back');
-        }
-    });
 };
 
 // POST signup
 exports.postSignup = function postSignup(req, res){
-    var user = new User({
-        email        : req.body.email,
-        passwordHash : req.body.password
-    });
-    user.save(function(err){
-        if(err){
-            res.status(422).send('Problem: ' + err.message);
-        }
-        else{
-            res.status(200).send('Welcome');
-        }
-    });
 };
