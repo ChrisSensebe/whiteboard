@@ -8,37 +8,16 @@ var schema = mongoose.Schema({
    passwordHash : {type : String, required : true}
 });
 
-schema.pre('save', function(next){
-   var self = this;
-   
-   if(!self.isModified('passwordHash')){
-      return next();
-   }
-   
-   bcrypt.hash(self.passwordHash, SALT_WORK_FACTOR, function(err, hash){
-      if(err){
-         return next(err);
-      }
-      self.passwordHash = hash;
-      next();
-   });
-});
+/* Methods */
 
-schema.statics.findByUsernameAndPassword = function findByUsernameAndPassword(email, password, cb){
-   this.findOne({email : email}, function(err, user){
-      if(err){
-         return cb(err);
-      }
-      if(!user){
-         return cb();
-      }
-      
-      bcrypt.compare(password, user.passwordHash, function(err, res){
-         return cb(err, res ? user : null);
-      });
-   });
+// generate hash
+schema.methods.generateHash = function(password){
+   return bcrypt.hash(password, SALT_WORK_FACTOR, null);
 };
 
-schema.set('autoIndex', false);
+// chek if password is valid
+schema.methods.isValidPassword = function(password){
+   return bcrypt.compare(password, this.local.password);
+};
 
 module.exports = mongoose.model('User', schema);
