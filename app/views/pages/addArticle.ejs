@@ -15,15 +15,14 @@
                 <% include ../partials/flash.ejs %>
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="addArticle" name="addArticle" method="post" action="/addArticle">
+                        <form id="addArticle" name="addArticle" method="post" action="/app/addArticle">
                             <legend>New article</legend>
-                            <% include ../partials/csrfToken.ejs %>
                             <input id="title" type="text" placeholder="Title" name="title" class="form-control">
                             <textarea id="title" placeholder="Article" name="article" class="form-control"></textarea>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
                         <form>
-                            <a class="btn btn-warning" href="/edit">Cancel</a>
+                            <a class="btn btn-warning" href="/app/edit">Cancel</a>
                         </form>
                     </div>
                 </div>

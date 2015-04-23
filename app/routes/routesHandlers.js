@@ -18,7 +18,7 @@ exports.getArticleById = function getArticleById(req, res){
     // getting entry that match 'title'
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
-        res.render(   'pages/article', {
+        res.render('pages/article', {
             article : doc
         });
     });
@@ -49,7 +49,6 @@ exports.getEdit = function getEdit(req, res){
     Article.find({}, function(e, docs){
        res.render('pages/edit', {
            title     : 'Edit',
-           csrfToken : req.csrfToken(),
            articles  : docs
        });
     });
@@ -58,7 +57,6 @@ exports.getEdit = function getEdit(req, res){
 // GET new article page
 exports.getAddArticle = function getAddArticle(req, res){
     res.render('pages/addArticle', {
-        csrfToken : req.csrfToken(),
         title     : 'Add new article'
     });
 };
@@ -71,7 +69,6 @@ exports.getEditArticleById = function getEditArticleById(req, res){
     Article.find({'_id': id}, function(e, docs){
         var doc = docs[0];
         res.render('pages/editArticle', {
-            csrfToken : req.csrfToken(),
             article   : doc
         });
     });
@@ -100,9 +97,9 @@ exports.postAddArticle = function postAddArticle(req, res){
             console.log(err);
         }
     //redirect to edit
-    res.location('/edit');
+    res.location('/app/edit');
     req.flash('notice', 'Article succesfully added');
-    res.redirect('/edit');
+    res.redirect('/app/edit');
     });
 };
 
@@ -119,9 +116,9 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
             console.log(err);
         }
         //redirect to edit
-        res.location('/edit');
+        res.location('/app/edit');
         req.flash('notice', 'Article succesfully updated');
-        res.redirect('/edit');
+        res.redirect('/app/edit');
     });
 };
 
@@ -137,8 +134,8 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
         }
         
         //redirect to edit
-        res.location('/edit');
+        res.location('/app/edit');
         req.flash('notice', 'Article succesfully deleted');
-        res.redirect('/edit');
+        res.redirect('/app/edit');
     });
 };

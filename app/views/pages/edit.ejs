@@ -18,9 +18,8 @@
                        <h1><%= title %></h1>
                         <% articles.forEach(function(article){ %>
                             <h3><%= article.title %></h3>
-                            <a href="/editArticle/<%= article._id %>">Edit</a><br>
-                            <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
-                                <% include ../partials/csrfToken.ejs %>
+                            <a href="/app/editArticle/<%= article._id %>">Edit</a><br>
+                            <form id="delArticle" name="delArticle" method="post" action="/app/deleteArticle">
                                 <% include ../partials/articleId.ejs %>
                                 <button type='submit' class="btn btn-danger">Delete article</button>
                             </form>
@@ -30,7 +29,7 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/addArticle">Create new article</a><br>
+                        <a href="/app/addArticle">Create new article</a><br>
                     </div>
                 </div>
                 

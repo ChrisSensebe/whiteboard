@@ -1,7 +1,8 @@
-var express        = require('express'),
-    handlers       = require('./routesHandlers'),
-    passport       = require('passport'),
-    router         = express.Router();
+var express         = require('express'),
+    handlers        = require('./routesHandlers'),
+    passport        = require('passport'),
+    isAuthenticated = require('../middlewares/ensureAuthenticated'),
+    router          = express.Router();
 
 // Unprotected routes
 router.get('/',            handlers.getHome);
@@ -9,25 +10,27 @@ router.get('/article/:id', handlers.getArticleById);
 router.get('/login',       handlers.getLogin);
 router.get('/signup',      handlers.getSignup);
 router.get('/about',       handlers.getAbout);
+router.get('/logout',      handlers.getLogout),
 router.post('/signup',     passport.authenticate('local-signup', {
-    successRedirect : '/',
+    successRedirect : '/app/edit',
     failureRedirect : '/signup',
     failureFlash    : true
 }));
 router.post('/login',      passport.authenticate('local-login', {
-    successRedirect : '/',
+    successRedirect : '/app/edit',
     failureRedirect : '/login',
     failureFlash    : true
 }));
 
+router.all('/app/*', isAuthenticated);
+
 // Protected routes
-router.get('/logout',          handlers.getLogout);
-router.get('/edit',            handlers.getEdit);
-router.get('/addArticle',      handlers.getAddArticle);
-router.get('/editArticle/:id', handlers.getEditArticleById);
-router.get('/logout',          handlers.getLogout),
-router.post('/addArticle',     handlers.postAddArticle);
-router.post('/update',         handlers.postUpdateArticle);
-router.post('/deleteArticle',  handlers.postDeleteArticle);
+router.get('/app/logout',          handlers.getLogout);
+router.get('/app/edit',            handlers.getEdit);
+router.get('/app/addArticle',      handlers.getAddArticle);
+router.get('/app/editArticle/:id', handlers.getEditArticleById);
+router.post('/app/addArticle',     handlers.postAddArticle);
+router.post('/app/update',         handlers.postUpdateArticle);
+router.post('/app/deleteArticle',  handlers.postDeleteArticle);
 
 module.exports = router;

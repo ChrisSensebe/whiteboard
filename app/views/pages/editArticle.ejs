@@ -15,9 +15,8 @@
                 <h3>Edit article</h3>
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="addArticle" name="addArticle" method="post" action="/update">
+                        <form id="addArticle" name="addArticle" method="post" action="/app/update">
                             <legend>Article title</legend>
-                            <% include ../partials/csrfToken.ejs %>
                             <% include ../partials/articleId.ejs %>
                             <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>" class="form-control">
                             <legend>Article</legend>
@@ -25,10 +24,9 @@
                             <button type="submit" class="btn btn-primary">Save and exit</button>
                         </form>
                         <form>
-                            <a href="/edit" class="btn btn-warning">Exit without saving</a>
+                            <a href="/app/edit" class="btn btn-warning">Exit without saving</a>
                         </form>
-                        <form id="delArticle" name="delArticle" method="post" action="/deleteArticle">
-                            <% include ../partials/csrfToken.ejs %>
+                        <form id="delArticle" name="delArticle" method="post" action="/app/deleteArticle">
                             <% include ../partials/articleId.ejs %>
                             <button type='submit' class="btn btn-danger">Delete article</button>
                         </form>
