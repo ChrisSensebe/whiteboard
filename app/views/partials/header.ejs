@@ -24,12 +24,12 @@
                             <%= currentUser.email %>
                         <% }
                         else{ %>
-                            User
+                            Sign in
                         <% } %><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <% if(!isAuthenticated){ %>
-                            <li><a href="/signup">Signup</a></li>
                             <li><a href="/login">Login</a></li>
+                            <li><a href="/signup">Signup</a></li>
                         <% }
                         else{ %>
                             <li><a href="/logout">Logout</a></li>
