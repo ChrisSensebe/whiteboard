@@ -48,7 +48,7 @@ App.app.use(bodyParser.json());
 App.app.use(bodyParser.urlencoded({ extended: false }));
 App.app.use(cookieParser());
 App.app.use(expressSession({
-  secret: 'Top secret Trololo',
+  secret: require('./sessionSecret'),
   saveUninitialized: true,
   resave: true}));
 App.app.use(csurf());
