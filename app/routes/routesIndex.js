@@ -33,4 +33,7 @@ router.post('/app/addArticle',     handlers.postAddArticle);
 router.post('/app/update',         handlers.postUpdateArticle);
 router.post('/app/deleteArticle',  handlers.postDeleteArticle);
 
+// 404
+router.get('/*', handlers.get404);
+
 module.exports = router;

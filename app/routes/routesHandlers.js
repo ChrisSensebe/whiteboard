@@ -139,3 +139,9 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
         res.redirect('/app/edit');
     });
 };
+
+// GET 404
+exports.get404 = function get404(req, res){
+    res.status(404);
+    res.send('Page not found');
+};
