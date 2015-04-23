@@ -27,17 +27,13 @@ exports.getArticleById = function getArticleById(req, res){
 // GET login page
 exports.getLogin = function getLogin(req, res){
     // display login page
-    res.render('pages/login', {
-        csrfToken : req.csrfToken(),
-    });
+    res.render('pages/login');
 };
 
 // GET signup page
 exports.getSignup = function getSignup(req, res){
     //display login page
-    res.render('pages/signup', {
-        csrfToken : req.csrfToken(),
-    });
+    res.render('pages/signup');
 };
 
 // GET logout
