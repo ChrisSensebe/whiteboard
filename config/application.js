@@ -8,8 +8,8 @@ var express        = require('express'),
     cookieParser   = require('cookie-parser'),
     expressSession = require('express-session'),
     passport       = require('passport'),
-    flash          = require('connect-flash'),
-    csurf          = require('csurf');
+    flash          = require('connect-flash');
+    // csurf          = require('csurf');
 
 console.log('Loading Whiteboard...');
 
@@ -53,8 +53,9 @@ App.app.use(expressSession({
   resave: true}));
 App.app.use(passport.initialize());
 App.app.use(passport.session());
+App.app.use(require('../app/middlewares/attachAuthentication'));
 App.app.use(flash());
 App.app.use(require('../app/middlewares/setFlash'));
-App.app.use(csurf());
+// App.app.use(csurf());
 App.app.use(express.static(App.appPath('public')));
 App.app.use('/', routes);
