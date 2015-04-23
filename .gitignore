@@ -1,6 +1,5 @@
 .c9/
 data/
-config/sessionSecret.js
 npm-debug.log
 mongod
 TODO.md
