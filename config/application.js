@@ -58,8 +58,8 @@ App.app.use(passport.session());
 App.app.use(require('../app/middlewares/attachAuthentication'));
 App.app.use(flash());
 App.app.use(require('../app/middlewares/setFlash'));
-App.app.use('/', routes);
 App.app.use(express.static(App.appPath('public')));
+App.app.use('/', routes);
 
 // error middlewares
 App.app.use(require('../app/middlewares/invalidCsrfToken'));
