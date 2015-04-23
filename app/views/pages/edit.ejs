@@ -21,6 +21,7 @@
                             <a href="/app/editArticle/<%= article._id %>">Edit</a><br>
                             <form id="delArticle" name="delArticle" method="post" action="/app/deleteArticle">
                                 <% include ../partials/articleId.ejs %>
+                                <% include ../partials/csrfToken.ejs %>
                                 <button type='submit' class="btn btn-danger">Delete article</button>
                             </form>
                         <% }); %>
