@@ -7,7 +7,6 @@ exports.getHome = function getHome(req, res){
         res.render('pages/index', {
             title    :    'Articles',
             articles : docs,
-            message  : req.flash('succes')
         });
     });
 };
@@ -44,7 +43,7 @@ exports.getSignup = function getSignup(req, res){
 // GET logout
 exports.getLogout = function getLogout(req, res) {
     req.logout();
-    req.flash('succes', 'You have successfully signed out.');
+    req.flash('notice', 'You have successfully logged out.');
     res.redirect('/');
 };
 
@@ -106,6 +105,7 @@ exports.postAddArticle = function postAddArticle(req, res){
         }
     //redirect to edit
     res.location('/edit');
+    req.flash('notice', 'Article succesfully added');
     res.redirect('/edit');
     });
 };
@@ -124,6 +124,7 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
         }
         //redirect to edit
         res.location('/edit');
+        req.flash('notice', 'Article succesfully updated');
         res.redirect('/edit');
     });
 };
@@ -141,6 +142,7 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
         
         //redirect to edit
         res.location('/edit');
+        req.flash('notice', 'Article succesfully deleted');
         res.redirect('/edit');
     });
 };

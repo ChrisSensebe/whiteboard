@@ -54,6 +54,7 @@ App.app.use(expressSession({
 App.app.use(passport.initialize());
 App.app.use(passport.session());
 App.app.use(flash());
+App.app.use(require('../app/middlewares/setFlash'));
 App.app.use(csurf());
 App.app.use(express.static(App.appPath('public')));
 App.app.use('/', routes);

@@ -1,5 +1,8 @@
 <!-- flash messages -->
 
-<% if (message.length > 0) { %>
-        <div class="alert alert-success"><%= message %></div>
+<% if (message.notice && message.notice.length > 0) { %>
+        <div class="alert alert-success"><%= message.notice %></div>
+<% } %>
+<% if (message.warning && message.warning.length > 0) { %>
+        <div class="alert alert-danger"><%= message.warning %></div>
 <% } %>
