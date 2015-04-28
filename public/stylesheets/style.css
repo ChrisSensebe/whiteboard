@@ -9,6 +9,9 @@ body{
 .row{
   margin-bottom: 15px;
 }
+#flash{
+  margin-top: 15px;
+}
 form{
   margin-top: 15px;
 }
