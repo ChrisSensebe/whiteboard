@@ -1,5 +1,6 @@
 .c9/
 data/
+config/config.js
 npm-debug.log
 mongod
 TODO.md
