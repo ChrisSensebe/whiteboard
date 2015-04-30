@@ -9,6 +9,7 @@ var express        = require('express'),
     expressSession = require('express-session'),
     passport       = require('passport'),
     flash          = require('connect-flash'),
+    config         = require('./config'),
     csurf          = require('csurf');
 
 console.log('Loading Whiteboard...');
@@ -31,7 +32,7 @@ global.App = {
 };
 
 // database connection
-App.require('config/database')(process.env.IP + '/whiteboard');
+App.require('config/database')(config.database);
 
 // view engine setup
 App.app.set('views', App.appPath('app/views'));
@@ -48,7 +49,7 @@ App.app.use(bodyParser.json());
 App.app.use(bodyParser.urlencoded({ extended: false }));
 App.app.use(cookieParser());
 App.app.use(expressSession({
-  secret: require('./sessionSecret'),
+  secret: config.sessionSecret,
   saveUninitialized: true,
   resave: true}));
 App.app.use(csurf());
