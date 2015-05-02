@@ -1,4 +1,7 @@
-var Article = require('../models/article');
+var Article    = require('../models/article'),
+    path       = require('path'),
+    formidable = require('formidable'),
+    fs         = require('fs-extra');
 
 // GET home page
 exports.getHome = function getHome(req, res){
