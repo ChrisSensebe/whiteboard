@@ -89,7 +89,6 @@ exports.getUpload = function getUpload(req, res){
 
 // POST upload
 exports.postUpload = function postUpload(req, res){
-    console.log('uploading file...');
     var form = new formidable.IncomingForm();
     form.uploadDir = path.join(__dirname, '../../temp/');
     form.parse(req, function(err, fields, files){
