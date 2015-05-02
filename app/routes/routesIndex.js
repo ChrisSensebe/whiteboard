@@ -29,9 +29,11 @@ router.get('/app/logout',          handlers.getLogout);
 router.get('/app/edit',            handlers.getEdit);
 router.get('/app/addArticle',      handlers.getAddArticle);
 router.get('/app/editArticle/:id', handlers.getEditArticleById);
+router.get('/app/upload',          handlers.getUpload);
 router.post('/app/addArticle',     handlers.postAddArticle);
 router.post('/app/update',         handlers.postUpdateArticle);
 router.post('/app/deleteArticle',  handlers.postDeleteArticle);
+router.post('/app/upload',         handlers.postUpload);
 
 // 404
 router.get('/*', handlers.get404);
