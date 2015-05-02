@@ -82,6 +82,42 @@ exports.getAbout = function getAbout(req, res){
     res.render('pages/about');
 };
 
+// GET upload page
+exports.getUpload = function getUpload(req, res){
+    res.render('pages/upload');
+};
+
+// POST upload
+exports.postUpload = function postUpload(req, res){
+    console.log('uploading file...');
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '../../temp/');
+    form.parse(req, function(err, fields, files){
+        if(err){
+            console.log(err);
+        }
+    });
+    form.on('end', function(fields, files){
+        var tempPath  = this.openedFiles[0].path;
+        var fileName  = this.openedFiles[0].name;
+        var finalPath = path.join(__dirname, '../../public/images/') + fileName;
+        fs.copy(tempPath, finalPath, fileName, function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+                fs.unlink(tempPath, function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
+        });
+        req.flash('notice', 'File successfully uploaded');
+        res.redirect('/app/edit');
+    });
+};
+
 // POST addArticle
 exports.postAddArticle = function postAddArticle(req, res){
     //inputs
