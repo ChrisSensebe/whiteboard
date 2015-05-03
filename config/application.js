@@ -50,6 +50,8 @@ App.app.use(helmet.csp(config.helmet.csp));
 App.app.use(helmet.xssFilter());
 App.app.use(helmet.xframe());
 App.app.use(helmet.hidePoweredBy());
+App.app.use(helmet.noSniff());
+App.app.use(helmet.ieNoOpen());
 App.app.use(bodyParser.json());
 App.app.use(bodyParser.urlencoded({ extended: false }));
 App.app.use(cookieParser());
