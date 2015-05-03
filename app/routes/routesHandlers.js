@@ -19,11 +19,18 @@ exports.getArticleById = function getArticleById(req, res){
     // getting 'id' atribute
     var id = req.params.id;
     // getting entry that match 'title'
-    Article.find({'_id': id}, function(e, docs){
-        var doc = docs[0];
-        res.render('pages/article', {
-            article : doc
-        });
+    Article.find({'_id': id}, function(err, docs){
+        if(err){
+            console.log(err);
+            res.status(404);
+            res.send('Page not found');
+        }
+        else{
+            var doc = docs[0];
+            res.render('pages/article', {
+                article : doc
+            }); 
+        }
     });
 };
 
@@ -69,11 +76,18 @@ exports.getEditArticleById = function getEditArticleById(req, res){
     // getting 'id' atribute
     var id = req.params.id;
     // getting entry that match 'title'
-    Article.find({'_id': id}, function(e, docs){
-        var doc = docs[0];
-        res.render('pages/editArticle', {
-            article   : doc
-        });
+    Article.find({'_id': id}, function(err, docs){
+        if(err){
+            console.log(err);
+            res.status(404);
+            res.send('Page not found');
+        }
+        else{
+            var doc = docs[0];
+            res.render('pages/article', {
+                article : doc
+            }); 
+        } 
     });
 };
 
