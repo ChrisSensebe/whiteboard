@@ -84,7 +84,7 @@ exports.getEditArticleById = function getEditArticleById(req, res){
         }
         else{
             var doc = docs[0];
-            res.render('pages/article', {
+            res.render('pages/editArticle', {
                 article : doc
             }); 
         } 
