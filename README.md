@@ -4,8 +4,10 @@ Generic web app
 
 ## Using
 
-* expressJs
+* node/expressJs
 * mongodb
+* jquery
+* bootstrap
 
 ## License
 
