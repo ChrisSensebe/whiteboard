@@ -10,6 +10,7 @@ var express        = require('express'),
     passport       = require('passport'),
     flash          = require('connect-flash'),
     config         = require('./config'),
+    helmet         = require('helmet'),
     csurf          = require('csurf');
 
 console.log('Loading Whiteboard...');
@@ -45,6 +46,10 @@ App.require('config/passportConfig')(passport);
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(__dirname + '/public/favicon.ico'));
+App.app.use(helmet.csp(config.helmet.csp));
+App.app.use(helmet.xssFilter());
+App.app.use(helmet.xframe());
+App.app.use(helmet.hidePoweredBy());
 App.app.use(bodyParser.json());
 App.app.use(bodyParser.urlencoded({ extended: false }));
 App.app.use(cookieParser());
