@@ -30,6 +30,7 @@ router.get('/app/edit',            handlers.getEdit);
 router.get('/app/addArticle',      handlers.getAddArticle);
 router.get('/app/editArticle/:id', handlers.getEditArticleById);
 router.get('/app/upload',          handlers.getUpload);
+router.get('/app/profile',         handlers.getUpdateProfile);
 router.post('/app/addArticle',     handlers.postAddArticle);
 router.post('/app/update',         handlers.postUpdateArticle);
 router.post('/app/deleteArticle',  handlers.postDeleteArticle);
