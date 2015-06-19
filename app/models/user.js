@@ -1,17 +1,36 @@
-var mongoose        = require('mongoose'),
-   bcrypt           = require('bcrypt');
-
+var mongoose = require('mongoose'),
+   bcrypt    = require('bcrypt'),
+   config    = require('../../config/config.js');
+   
 var schema = mongoose.Schema({
-   email        : {type : String, required : true, unique : true},
-   passwordHash : {type : String, required : true}
+   username     : {type : String, required : true, unique : true},
+   passwordHash : {type : String, required : true},
+   email        : {type : String, unique : true}
 });
+
+schema.set('autoIndex', false);
 
 /* Methods */
 
-// generate hash
-schema.methods.generateHash = function(password){
-   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-};
+// pre save function
+schema.pre('save', function(next){
+   var user = this;
+   if(!user.isModified('passwordHash')){
+      return next();
+   }
+   bcrypt.genSalt(config.saltWorkFactor, function(err, salt){
+      if(err){
+         return next(err);
+      }
+      bcrypt.hash(user.passwordHash, salt, function(err, hash){
+         if(err){
+            return next(err);
+         }
+         user.passwordHash = hash;
+         next();
+      });
+   });
+});
 
 // chek if password is valid
 schema.methods.validPassword = function(password){
