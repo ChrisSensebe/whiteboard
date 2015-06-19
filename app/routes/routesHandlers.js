@@ -1,4 +1,5 @@
 var Article    = require('../models/article'),
+    User       = require('../models/user'),
     path       = require('path'),
     formidable = require('formidable'),
     fs         = require('fs-extra');
@@ -195,6 +196,41 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
         req.flash('notice', 'Article succesfully deleted');
         res.redirect('/app/edit');
     });
+};
+
+// POST updateProfile
+exports.postUpdateProfile = function postUpdateProfile(req, res){
+    
+    var currentUsername = String(req.user.username);
+    var newEmail        = String(req.body.email);
+    var newPassword     = String(req.body.password);
+    var newUsername     = String(req.body.username);
+    a
+    User.findOne({username : currentUsername}, function(err, user) {
+    if(err){
+        throw err;
+    }
+    else if(!user){
+        req.flash('warning', 'User not found');
+        res.redirect('Nizural/edit');
+    }
+    else{
+        user.email        = newEmail;
+        user.passwordHash = newPassword;
+        user.username     = newUsername;
+        
+        user.save(function(err){
+            if(err){
+                console.log(err);
+                req.flash('warning', 'Error updating profile');
+                res.redirect('Nizural/edit');
+            }
+            req.flash('notice', 'Profile successfully updated');
+            res.redirect('Nizural/edit');
+        });
+    }
+});
+    
 };
 
 // GET 404
