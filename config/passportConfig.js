@@ -18,13 +18,13 @@ module.exports = function(passport){
     
     // local signup
     passport.use('local-signup', new LocalStrategy({
-        usernameField     : 'email',
+        usernameField     : 'username',
         passwordField     : 'password',
         passReqToCallback : true
     },
-    function(req, email, password, cb){
+    function(req, username, password, cb){
         process.nextTick(function(){
-            User.findOne({'email' : email}, function(err, user){
+            User.findOne({'username' : username}, function(err, user){
                 if(err){
                     return cb(err);
                 }
@@ -32,7 +32,7 @@ module.exports = function(passport){
                     return cb(null, false, req.flash('warning', 'user already exists'));
                 }
                 var newUser = new User;
-                newUser.email = email;
+                newUser.username = username;
                 
                 newUser.passwordHash = newUser.generateHash(password);
                 
@@ -48,12 +48,12 @@ module.exports = function(passport){
     
     // local login
     passport.use('local-login', new LocalStrategy({
-        usernameField     : 'email',
+        usernameField     : 'username',
         passwordField     : 'password',
         passReqToCallback : true
     },
-    function(req, email, password, cb){
-        User.findOne({'email' : email},
+    function(req, username, password, cb){
+        User.findOne({'username' : username},
         function(err, user){
             if(err){
                 return cb(err);
