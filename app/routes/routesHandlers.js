@@ -101,6 +101,11 @@ exports.getUpload = function getUpload(req, res){
     res.render('pages/upload');
 };
 
+// GET updateProfile page
+exports.getUpdateProfile = function getUpdateProfile(req, res){
+    res.render('pages/updateProfile.ejs');
+};
+
 // POST upload
 exports.postUpload = function postUpload(req, res){
     var form = new formidable.IncomingForm();
