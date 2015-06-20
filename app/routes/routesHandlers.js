@@ -232,7 +232,7 @@ exports.postUpdateProfile = function postUpdateProfile(req, res){
     }
     else if(!user){
         req.flash('warning', 'User not found');
-        res.redirect('app/edit');
+        res.redirect('/app/edit');
     }
     else{
         user.email        = newEmail;
@@ -243,10 +243,10 @@ exports.postUpdateProfile = function postUpdateProfile(req, res){
             if(err){
                 console.log(err);
                 req.flash('warning', 'Error updating profile');
-                res.redirect('app/profile');
+                res.redirect('/app/profile');
             }
             req.flash('notice', 'Profile successfully updated');
-            res.redirect('app/edit');
+            res.redirect('/app/edit');
         });
     }
 });
