@@ -168,10 +168,9 @@ exports.postAddArticle = function postAddArticle(req, res){
 // POST update
 exports.postUpdateArticle = function postUpdateArticle(req, res){
     //inputs
-    var articleId          = req.body.articleId;
-    var articleTitle       = req.body.title;
-    var articleBody = req.body.article;
-    
+    var articleId    = req.body.articleId;
+    var articleTitle = req.body.title;
+    var articleBody  = req.body.article;
     
     // find article and update
     Article.findOne({'_id': articleId}, function(err, article){
