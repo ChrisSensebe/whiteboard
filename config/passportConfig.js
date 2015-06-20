@@ -31,10 +31,10 @@ module.exports = function(passport){
                 if(user){
                     return cb(null, false, req.flash('warning', 'user already exists'));
                 }
-                var newUser = new User;
-                newUser.username = username;
                 
-                newUser.passwordHash = newUser.generateHash(password);
+                var newUser          = new User;
+                newUser.username     = username;
+                newUser.passwordHash = password;
                 
                 newUser.save(function(err){
                     if(err){
