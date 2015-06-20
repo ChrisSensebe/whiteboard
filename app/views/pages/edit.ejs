@@ -18,7 +18,11 @@
                        <h1><%= title %></h1>
                         <% articles.forEach(function(article){ %>
                             <h3><%= article.title %></h3>
-                            <a href="/app/editArticle/<%= article._id %>">Edit</a><br>
+                            <p>
+                                <%= article.author %><br>
+                                <%= article.created.getUTCDate() + '/' + String(parseInt(article.created.getMonth())+1) + '/' + article.created.getFullYear() %><br>
+                                <a href="/app/editArticle/<%= article._id %>">Edit</a><br>
+                            </p>
                             <form id="delArticle" name="delArticle" method="post" action="/app/deleteArticle">
                                 <% include ../partials/articleId.ejs %>
                                 <% include ../partials/csrfToken.ejs %>
