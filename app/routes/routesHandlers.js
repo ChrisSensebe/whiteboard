@@ -142,17 +142,22 @@ exports.postAddArticle = function postAddArticle(req, res){
     //inputs
     var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
+    var author             = req.user.username;
     
     // create new Article
     var newArticle = Article({
-        title: articleTitle,
-        articleBody: articlearticleBody,
+        title       : articleTitle,
+        articleBody : articlearticleBody,
+        author      : author,
+        date        : Date.now()
     });
     
     //submit to the db
     newArticle.save(function(err){
         if(err){
             console.log(err);
+            req.flash('warning', 'Error adding article');
+            res.redirect('app/edit');
         }
     //redirect to edit
     res.location('/app/edit');
@@ -166,17 +171,34 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
     //inputs
     var articleId          = req.body.articleId;
     var articleTitle       = req.body.title;
-    var articlearticleBody = req.body.article;
+    var articleBody = req.body.article;
+    
     
     // find article and update
-    Article.findByIdAndUpdate(articleId, {title: articleTitle, articleBody: articlearticleBody}, function(err){
+    Article.findOne({'_id': articleId}, function(err, article){
         if(err){
-            console.log(err);
+            throw err;
         }
-        //redirect to edit
-        res.location('/app/edit');
-        req.flash('notice', 'Article succesfully updated');
-        res.redirect('/app/edit');
+        else if(!article){
+            req.flash('warning', 'Article not found in database');
+            res.redirect('/app/edit');
+        }
+        else{
+            article.title       = articleTitle;
+            article.articleBody = articleBody;
+            article.updated     = Date.now();
+            article.save(function(err){
+                if(err){
+                    console.log(err);
+                    req.flash('warning', 'Error saving article');
+                    res.redirect('Nizural/edit');
+                }
+                else{
+                    req.flash('notice', 'Article succesfully updated');
+                    res.redirect('/Nizural/edit');
+                }
+            });
+        }
     });
 };
 
