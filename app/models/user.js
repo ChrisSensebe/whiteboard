@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 var schema = mongoose.Schema({
    username     : {type : String, required : true, unique : true},
    passwordHash : {type : String, required : true},
-   email        : {type : String, unique : true}
+   email        : {type : String}
 });
 
 schema.set('autoIndex', false);
