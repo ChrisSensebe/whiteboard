@@ -18,8 +18,12 @@
                         <h1><%= title %></h1>
                         <% articles.forEach(function(article){ %>
                         <h3><%= article.title %></h3>
-                        <a href="/article/<%= article._id %>">View article</a><br>
-                    <% }); %>
+                        <p>
+                            <%= article.author %><br>
+                            <%= article.created.getUTCDate() + '/' + String(parseInt(article.created.getMonth())+1) + '/' + article.created.getFullYear() %><br>
+                            <a href="/article/<%= article._id %>">View article</a><br>
+                        </p>
+                        <% }); %>
                     </div>
                 </div>
             </div>
