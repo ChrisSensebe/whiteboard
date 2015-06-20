@@ -9,7 +9,6 @@ exports.getHome = function getHome(req, res){
     // getting all articles in collection
     Article.find({}, function(error, docs){
         res.render('pages/index', {
-            title    :    'Articles',
             articles : docs,
         });
     });
