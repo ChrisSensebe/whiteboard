@@ -189,11 +189,11 @@ exports.postUpdateArticle = function postUpdateArticle(req, res){
                 if(err){
                     console.log(err);
                     req.flash('warning', 'Error saving article');
-                    res.redirect('Nizural/edit');
+                    res.redirect('/app/edit');
                 }
                 else{
                     req.flash('notice', 'Article succesfully updated');
-                    res.redirect('/Nizural/edit');
+                    res.redirect('/app/edit');
                 }
             });
         }
