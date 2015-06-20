@@ -221,14 +221,17 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 // POST updateProfile
 exports.postUpdateProfile = function postUpdateProfile(req, res){
     
-    var currentUsername = String(req.user.username);
-    var newEmail        = String(req.body.email);
-    var newPassword     = String(req.body.password);
-    var newUsername     = String(req.body.username);
+    var currentUsername = req.user.username;
+    console.log(currentUsername);
+    var newUsername     = req.body.username;
+    var newPassword     = req.body.password;
+    var newEmail        = req.body.email;
     
     User.findOne({username : currentUsername}, function(err, user) {
     if(err){
-        throw err;
+        console.log(err);
+        req.flash('warning', 'Error updating profile');
+        res.redirect('/app/profile');
     }
     else if(!user){
         req.flash('warning', 'User not found');
