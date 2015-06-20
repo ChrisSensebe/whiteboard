@@ -222,12 +222,11 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 exports.postUpdateProfile = function postUpdateProfile(req, res){
     
     var currentUsername = req.user.username;
-    console.log(currentUsername);
     var newUsername     = req.body.username;
     var newPassword     = req.body.password;
     var newEmail        = req.body.email;
     
-    User.findOne({username : currentUsername}, function(err, user) {
+    User.findOne({'username' : currentUsername}, function(err, user) {
     if(err){
         console.log(err);
         req.flash('warning', 'Error updating profile');
@@ -248,8 +247,10 @@ exports.postUpdateProfile = function postUpdateProfile(req, res){
                 req.flash('warning', 'Error updating profile');
                 res.redirect('/app/profile');
             }
-            req.flash('notice', 'Profile successfully updated');
-            res.redirect('/app/edit');
+            else{
+                req.flash('notice', 'Profile successfully updated');
+                res.redirect('/app/edit');
+            }
         });
     }
 });
