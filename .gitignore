@@ -4,3 +4,4 @@ npm-debug.log
 mongod
 TODO.md
 bugs.txt
+config/config.js
