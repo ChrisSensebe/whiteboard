@@ -56,7 +56,7 @@ exports.getLogout = function getLogout(req, res) {
 // GET edit index page
 exports.getEdit = function getEdit(req, res){
     //getting all articles in collection
-    Article.find({}, function(e, docs){
+    Article.find({'authorId' : req.user._id}, function(e, docs){
        res.render('pages/edit', {
            title     : 'Edit',
            articles  : docs
