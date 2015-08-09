@@ -71,3 +71,4 @@ App.app.use('/', routes);
 
 // error middlewares
 App.app.use(require('../app/middlewares/invalidCsrfToken'));
+App.app.use(require('../app/middlewares/notAuthorized'));
