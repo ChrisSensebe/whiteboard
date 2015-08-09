@@ -142,9 +142,11 @@ exports.postAddArticle = function postAddArticle(req, res){
     var articleTitle       = req.body.title;
     var articlearticleBody = req.body.article;
     var author             = req.user.username;
+    var authorId           = req.user._id;
     
     // create new Article
     var newArticle = Article({
+        authorId    : authorId,
         title       : articleTitle,
         articleBody : articlearticleBody,
         author      : author,
