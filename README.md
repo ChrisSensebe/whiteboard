@@ -1,14 +1,10 @@
 # Whiteboard
 
-Generic web app
+Blog app
 
 ## Using
 
 * node/expressJs
-* mongodb
+* mongodb/mongoose
 * jquery
 * bootstrap
-
-## License
-
-MIT
