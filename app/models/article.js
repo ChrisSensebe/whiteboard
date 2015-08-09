@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var schema   = mongoose.Schema({
+   authorId    : {type : mongoose.Schema.Types.ObjectId},
    title       : {type : String, required : true, unique : true},
    articleBody : {type : String, required : true},
    author      : {type : String, required : true},
