@@ -2,6 +2,8 @@ var express         = require('express'),
     handlers        = require('./routesHandlers'),
     passport        = require('passport'),
     isAuthenticated = require('../middlewares/ensureAuthenticated'),
+    auth            = require('../authorization/accesControl'),
+    canModify       = auth.can('modify article'),
     router          = express.Router();
 
 // Unprotected routes
@@ -28,7 +30,7 @@ router.all('/app/*', isAuthenticated);
 router.get('/app/logout',          handlers.getLogout);
 router.get('/app/edit',            handlers.getEdit);
 router.get('/app/addArticle',      handlers.getAddArticle);
-router.get('/app/editArticle/:id', handlers.getEditArticleById);
+router.get('/app/editArticle/:id', canModify,handlers.getEditArticleById);
 router.get('/app/upload',          handlers.getUpload);
 router.get('/app/profile',         handlers.getUpdateProfile);
 router.post('/app/updateProfile',  handlers.postUpdateProfile);

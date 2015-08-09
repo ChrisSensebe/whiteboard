@@ -9,6 +9,6 @@ auth.entity('article', function fetchArticle(req, cb){
     Article.findById(req.params.id, cb);
 });
 
-auth.action('edit article', ['article.author']);
+auth.action('modify article', ['article.author']);
 
 module.exports = auth;
