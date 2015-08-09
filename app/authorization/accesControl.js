@@ -6,7 +6,12 @@ auth.role('article.author', function (record, req, cb){
 });
     
 auth.entity('article', function fetchArticle(req, cb){
-    Article.findById(req.params.id, cb);
+    if(req.params.id) {
+        Article.findById(req.params.id, cb);
+    } else {
+        Article.findById(req.body.articleId, cb);
+    }
+    
 });
 
 auth.action('modify article', ['article.author']);
