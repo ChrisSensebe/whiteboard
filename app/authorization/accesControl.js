@@ -2,7 +2,7 @@ var auth    = require ('authorized'),
     Article = require('../models/article');
 
 auth.role('article.author', function (record, req, cb){
-    cb(null, req.user.id === record._id.toString());
+    cb(null, req.user.id === record.authorId.toString());
 });
     
 auth.entity('article', function fetchArticle(req, cb){
