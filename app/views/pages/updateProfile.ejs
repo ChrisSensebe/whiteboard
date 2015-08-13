@@ -19,9 +19,10 @@
                         <form action="/app/updateProfile" method="POST">
                             <legend>Profile</legend>
                             <% include ../partials/csrfToken.ejs %>
+                            <label for="username">Update your username</label>
                             <input type="text" name="username" placeholder="<%= currentUser.username %>" required class="form-control">
-                            <input type="password" name="password" placeholder="update your password" required class="form-control">
-                            <input type="text" name="email" placeholder="<%= currentUser.email %>" required class="form-control">
+                            <label for="password">Change your password</label>
+                            <input type="password" name="password" required class="form-control">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>

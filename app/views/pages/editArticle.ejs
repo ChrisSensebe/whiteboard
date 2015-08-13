@@ -13,16 +13,16 @@
             </header>
             <div class="container">
                 <% include ../partials/flash.ejs %>
-                <h3>Edit article</h3>
                 <div class="row">
                     <div class="col-md-12">
                         <form id="addArticle" name="addArticle" method="post" action="/app/update">
-                            <legend>Article title</legend>
+                            <legend>Edit article</legend>
+                            <label for="title">Article title</label>
                             <% include ../partials/articleId.ejs %>
                             <% include ../partials/csrfToken.ejs %>
-                            <input id="title" type="text" placeholder="Title" name="title" value="<%= article.title %>" class="form-control">
-                            <legend>Article</legend>
-                            <textarea id="article" placeholder="Article" name="article" class="form-control"><%= article.articleBody %></textarea>
+                            <input id="title" type="text" name="title" value="<%= article.title %>" class="form-control">
+                            <label for="article">Article body</label>
+                            <textarea id="article" name="article" class="form-control"><%= article.articleBody %></textarea>
                             <button type="submit" class="btn btn-primary">Save and exit</button>
                         </form>
                         <form>

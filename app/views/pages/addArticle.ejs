@@ -19,8 +19,10 @@
                         <form id="addArticle" name="addArticle" method="post" action="/app/addArticle">
                             <legend>New article</legend>
                             <% include ../partials/csrfToken.ejs %>
-                            <input id="title" type="text" placeholder="Title" name="title" class="form-control">
-                            <textarea id="article" placeholder="Article" name="article" class="form-control" ></textarea>
+                            <label for="title">Article title</label>
+                            <input id="title" type="text" name="title" class="form-control">
+                            <label for="article">Article body</label>
+                            <textarea id="article" name="article" class="form-control" ></textarea>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
                         <form>
