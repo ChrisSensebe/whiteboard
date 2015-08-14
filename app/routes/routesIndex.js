@@ -14,12 +14,12 @@ router.get('/signup',      handlers.getSignup);
 router.get('/about',       handlers.getAbout);
 router.get('/logout',      handlers.getLogout),
 router.post('/signup',     passport.authenticate('local-signup', {
-    successRedirect : '/app/edit',
+    successRedirect : '/',
     failureRedirect : '/signup',
     failureFlash    : true
 }));
 router.post('/login',      passport.authenticate('local-login', {
-    successRedirect : '/app/edit',
+    successRedirect : '/',
     failureRedirect : '/login',
     failureFlash    : true
 }));
