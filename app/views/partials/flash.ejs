@@ -1,6 +1,6 @@
 <% if (message.notice && message.notice.length > 0) { %>
-        <div id="flash" class="alert alert-success"><%= message.notice %><button id="hideFlash" class="btn btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></div>
+        <div id="flash" class="alert alert-success"><%= message.notice %><button id="hideFlash" class="btn btn-xs pull-right close-succes"><span class="glyphicon glyphicon-remove"></span></button></div>
 <% } %>
 <% if (message.warning && message.warning.length > 0) { %>
-        <div id="flash" class="alert alert-danger"><%= message.warning %><button id="hideFlash" class="btn btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></div>
+        <div id="flash" class="alert alert-danger"><%= message.warning %><button id="hideFlash" class="btn btn-xs pull-right close-danger"><span class="glyphicon glyphicon-remove"></span></button></div>
 <% } %>
