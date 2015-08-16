@@ -19,9 +19,9 @@
                         <form action="/login" method="POST">
                             <legend>Login</legend>
                             <% include ../partials/csrfToken.ejs %>
-                            <label for="username">Your email</label>
+                            <label for="username">Email</label>
                             <input type="text" name="email" class="form-control" required>
-                            <label for="password">Your password</label>
+                            <label for="password">Password</label>
                             <input type="password" name="password" class="form-control" required>
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
