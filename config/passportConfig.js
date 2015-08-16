@@ -33,7 +33,7 @@ module.exports = function(passport){
                 }
                 
                 var newUser          = new User;
-                newUser.email        = username
+                newUser.email        = username;
                 newUser.username     = req.body.username;
                 newUser.passwordHash = password;
                 
