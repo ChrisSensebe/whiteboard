@@ -102,8 +102,8 @@ exports.getUpload = function getUpload(req, res){
 };
 
 // GET updateProfile page
-exports.getUpdateProfile = function getUpdateProfile(req, res){
-    res.render('pages/updateProfile.ejs');
+exports.getProfile = function getUpdateProfile(req, res){
+    res.render('pages/profile.ejs');
 };
 
 // POST upload
@@ -223,11 +223,10 @@ exports.postDeleteArticle = function postDeleteArticle(req, res){
 // POST updateProfile
 exports.postUpdateProfile = function postUpdateProfile(req, res){
     
-    var currentUsername = req.user.username;
-    var newUsername     = req.body.username;
-    var newPassword     = req.body.password;
+    var username    = req.user.username;
+    var newPassword = req.body.password;
     
-    User.findOne({'username' : currentUsername}, function(err, user) {
+    User.findOne({'username' : username}, function(err, user) {
         if(err){
             console.log(err);
             req.flash('warning', 'Error updating profile');
@@ -239,7 +238,6 @@ exports.postUpdateProfile = function postUpdateProfile(req, res){
         }
         else{
             user.passwordHash = newPassword;
-            user.username     = newUsername;
                 
             user.save(function(err){
                 if(err){

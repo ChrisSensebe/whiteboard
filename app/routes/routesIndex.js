@@ -31,7 +31,7 @@ router.get('/app/edit',            handlers.getEdit);
 router.get('/app/addArticle',      handlers.getAddArticle);
 router.get('/app/editArticle/:id', canModify, handlers.getEditArticleById);
 router.get('/app/upload',          handlers.getUpload);
-router.get('/app/profile',         handlers.getUpdateProfile);
+router.get('/app/profile',         handlers.getProfile);
 router.post('/app/updateProfile',  handlers.postUpdateProfile);
 router.post('/app/addArticle',     handlers.postAddArticle);
 router.post('/app/update',         canModify, handlers.postUpdateArticle);
