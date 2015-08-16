@@ -20,9 +20,9 @@
                             <legend>Profile</legend>
                             <% include ../partials/csrfToken.ejs %>
                             <label for="username">Update your username</label>
-                            <input type="text" name="username" placeholder="<%= currentUser.username %>" required class="form-control">
+                            <input type="text" name="username" placeholder="<%= currentUser.username %>" class="form-control" required>
                             <label for="password">Change your password</label>
-                            <input type="password" name="password" required class="form-control">
+                            <input type="password" name="password" class="form-control" required>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
