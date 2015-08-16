@@ -226,37 +226,34 @@ exports.postUpdateProfile = function postUpdateProfile(req, res){
     var currentUsername = req.user.username;
     var newUsername     = req.body.username;
     var newPassword     = req.body.password;
-    var newEmail        = req.body.email;
     
     User.findOne({'username' : currentUsername}, function(err, user) {
-    if(err){
-        console.log(err);
-        req.flash('warning', 'Error updating profile');
-        res.redirect('/app/profile');
-    }
-    else if(!user){
-        req.flash('warning', 'User not found');
-        res.redirect('/app/edit');
-    }
-    else{
-        user.email        = newEmail;
-        user.passwordHash = newPassword;
-        user.username     = newUsername;
-        
-        user.save(function(err){
-            if(err){
-                console.log(err);
-                req.flash('warning', 'Error updating profile');
-                res.redirect('/app/profile');
-            }
-            else{
-                req.flash('notice', 'Profile successfully updated');
-                res.redirect('/app/edit');
-            }
-        });
-    }
-});
-    
+        if(err){
+            console.log(err);
+            req.flash('warning', 'Error updating profile');
+            res.redirect('/app/profile');
+        }
+        else if(!user){
+            req.flash('warning', 'User not found');
+            res.redirect('/app/edit');
+        }
+        else{
+            user.passwordHash = newPassword;
+            user.username     = newUsername;
+                
+            user.save(function(err){
+                if(err){
+                    console.log(err);
+                    req.flash('warning', 'Error updating profile');
+                    res.redirect('/app/profile');
+                }
+                else{
+                    req.flash('notice', 'Profile successfully updated');
+                    res.redirect('/app/edit');
+                }
+            });
+        }
+    });
 };
 
 // GET 404
