@@ -12,7 +12,6 @@ router.get('/article/:id', handlers.getArticleById);
 router.get('/login',       handlers.getLogin);
 router.get('/signup',      handlers.getSignup);
 router.get('/about',       handlers.getAbout);
-router.get('/logout',      handlers.getLogout),
 router.post('/signup',     passport.authenticate('local-signup', {
     successRedirect : '/',
     failureRedirect : '/signup',
