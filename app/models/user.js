@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
    config    = require('../../config/config.js');
    
 var schema = mongoose.Schema({
+   email        : {type : String, required : true, unique : true},
    username     : {type : String, required : true, unique : true},
-   passwordHash : {type : String, required : true},
-   email        : {type : String}
+   passwordHash : {type : String, required : true}
 });
 
 schema.set('autoIndex', false);
