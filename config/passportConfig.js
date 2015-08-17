@@ -41,7 +41,7 @@ module.exports = function(passport){
                     if(err){
                         return cb(err);
                     }
-                    return cb(null, newUser);
+                    return cb(null, newUser, req.flash('notice', 'Welcome ' + newUser.username));
                 });
             });
         });
@@ -65,7 +65,7 @@ module.exports = function(passport){
             if(!user.validPassword(password)){
                 return cb(null, false, req.flash('warning', 'invalid password'));
             }
-            return cb(null, user);
+            return cb(null, user, req.flash('notice', 'Welcome back ' + username));
         });
     }));
 };
