@@ -20,14 +20,17 @@
                             <legend>Signup</legend>
                             <% include ../partials/csrfToken.ejs %>
                             <label for="username">Username</label>
-                            <input type="text" name="username" class="form-control" required>
+                            <input type="text" name="username" id="username" class="form-control" required>
+                            <p id="usernameText"></p>
                             <label for="email">Email</label>
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" id=email"" class="form-control" required>
+                            <p id="emailText"></p>
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" required>
+                            <p id="passwordText"></p>
                             <label for="password">Confirm password</label>
                             <input type="password" id="confirmPassword" class="form-control" required>
-                            <p id="passwordMatch"></p>
+                            <p id="confirmPasswordText"></p>
                             <button type="submit" class="btn btn-primary" id="sendButton" disabled>Update</button>
                         </form>
                     </div>

@@ -20,9 +20,11 @@
                             <legend>Login</legend>
                             <% include ../partials/csrfToken.ejs %>
                             <label for="username">Email</label>
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" id="email" class="form-control" required>
+                            <p id="emailText"></p>
                             <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                            <p id="passwordText"></p>
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
                     </div>
