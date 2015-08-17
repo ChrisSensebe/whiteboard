@@ -20,9 +20,9 @@
                             <legend>New article</legend>
                             <% include ../partials/csrfToken.ejs %>
                             <label for="title">Article title</label>
-                            <input id="title" type="text" name="title" class="form-control">
+                            <input id="title" type="text" name="title" class="form-control" required>
                             <label for="article">Article body</label>
-                            <textarea id="article" name="article" class="form-control" ></textarea>
+                            <textarea id="article" name="article" class="form-control" required></textarea>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
                         <form>
