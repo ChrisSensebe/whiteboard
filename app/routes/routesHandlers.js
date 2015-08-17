@@ -48,8 +48,8 @@ exports.getSignup = function getSignup(req, res){
 
 // GET logout
 exports.getLogout = function getLogout(req, res) {
+    req.flash('notice', 'Good bye ' + req.user.username);
     req.logout();
-    req.flash('notice', 'You have successfully logged out.');
     res.redirect('/');
 };
 
