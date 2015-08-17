@@ -65,7 +65,7 @@ module.exports = function(passport){
             if(!user.validPassword(password)){
                 return cb(null, false, req.flash('warning', 'invalid password'));
             }
-            return cb(null, user, req.flash('notice', 'Welcome back ' + username));
+            return cb(null, user, req.flash('notice', 'Welcome back ' + user.username));
         });
     }));
 };
