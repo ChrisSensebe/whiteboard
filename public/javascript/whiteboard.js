@@ -21,14 +21,12 @@ function passwordCheck(){
     
     if (password != confirmPassword){
         $('#confirmPasswordText').text('Passwords must match');
-        $('#confirmPassword').css('background-color', '#f2dede');
-        $('#confirmPassword').css('border-color', '#a94442');
+        $('#confirmPassword').addClass('invalid-form');
         $('#sendButton').prop('disabled', true);
     }
     else{
         $('#confirmPasswordText').text('');
-        $('#confirmPassword').css('background-color', '#ffffff');
-        $('#confirmPassword').css('border-color', '#66afe9');
+        $('#confirmPassword').removeClass('invalid-form');
         $('#sendButton').prop('disabled', false);
     }
 }
@@ -40,14 +38,12 @@ function validateEmail(){
     
     if(!emailReg.test(email)){
         $('#emailText').text('Must be a valid email adress');
-        $('#email').css('background-color', '#f2dede');
-        $('#email').css('border-color', '#a94442');
+        $('#email').addClass('invalid-form');
         $('#sendButton').prop('disabled', true);
     }
     else{
         $('#emailText').text('');
-        $('#email').css('background-color', '#ffffff');
-        $('#email').css('border-color', '#66afe9');
+        $('#email').removeClass('invalid-form');
         $('#sendButton').prop('disabled', false);
     }
 }
@@ -59,14 +55,12 @@ function validateUsername(){
     
     if(!usernameReg.test(username)){
         $('#usernameText').text('Username must be between 3 and 20 caracters, and must contain only letters, numbers, - and _ symbols');
-        $('#username').css('background-color', '#f2dede');
-        $('#username').css('border-color', '#a94442');
+        $('#username').addClass('invalid-form');
         $('#sendButton').prop('disabled', true);
     }
     else{
         $('#usernameText').text('');
-        $('#username').css('background-color', '#ffffff');
-        $('#username').css('border-color', '#66afe9');
+        $('#username').removeClass('invalid-form');
         $('#sendButton').prop('disabled', false);
     }
 }
@@ -78,14 +72,12 @@ function validatePassword(){
     
     if(!passwordReg.test(password)){
         $('#passwordText').text('Password must be between 3 and 20 caracters');
-        $('#password').css('background-color', '#f2dede');
-        $('#password').css('border-color', '#a94442');
+        $('#password').addClass('invalid-form');
         $('#sendButton').prop('disabled', true);
     }
     else{
         $('#passwordText').text('');
-        $('#password').css('background-color', '#ffffff');
-        $('#password').css('border-color', '#66afe9');
+        $('#password').removeClass('invalid-form');
         $('#sendButton').prop('disabled', false);
     }
 }

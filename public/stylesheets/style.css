@@ -1,4 +1,4 @@
-/* Additional styles */
+/* Main */
 
 body{
     font-family: 'Lato', sans-serif;
@@ -38,6 +38,13 @@ form{
 .close-danger{
     border-style: none;
     background-color: #f2dede;
+}
+
+/* Class for invalid input */
+
+.invalid-form{
+    background-color: #f2dede;
+    border-color: #a94442;
 }
 
 /* Sticky footer */
