@@ -22,12 +22,10 @@ function passwordCheck(){
     if (password != confirmPassword){
         $('#confirmPasswordText').text('Passwords must match');
         $('#confirmPassword').addClass('invalid-form');
-        $('#sendButton').prop('disabled', true);
     }
     else{
         $('#confirmPasswordText').text('');
         $('#confirmPassword').removeClass('invalid-form');
-        $('#sendButton').prop('disabled', false);
     }
 }
 
@@ -39,12 +37,10 @@ function validateEmail(){
     if(!emailReg.test(email)){
         $('#emailText').text('Must be a valid email adress');
         $('#email').addClass('invalid-form');
-        $('#sendButton').prop('disabled', true);
     }
     else{
         $('#emailText').text('');
         $('#email').removeClass('invalid-form');
-        $('#sendButton').prop('disabled', false);
     }
 }
 
@@ -56,12 +52,10 @@ function validateUsername(){
     if(!usernameReg.test(username)){
         $('#usernameText').text('Username must be between 3 and 20 caracters, and must contain only letters, numbers, - and _ symbols');
         $('#username').addClass('invalid-form');
-        $('#sendButton').prop('disabled', true);
     }
     else{
         $('#usernameText').text('');
         $('#username').removeClass('invalid-form');
-        $('#sendButton').prop('disabled', false);
     }
 }
 
@@ -73,11 +67,9 @@ function validatePassword(){
     if(!passwordReg.test(password)){
         $('#passwordText').text('Password must be between 3 and 20 caracters');
         $('#password').addClass('invalid-form');
-        $('#sendButton').prop('disabled', true);
     }
     else{
         $('#passwordText').text('');
         $('#password').removeClass('invalid-form');
-        $('#sendButton').prop('disabled', false);
     }
 }
