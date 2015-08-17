@@ -24,8 +24,11 @@
                             <label for="email">Email</label>
                             <input type="text" name="email" class="form-control" required>
                             <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" required>
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                            <label for="password">Confirm password</label>
+                            <input type="password" id="confirmPassword" class="form-control" required>
+                            <p id="passwordMatch"></p>
+                            <button type="submit" class="btn btn-primary" id="sendButton" disabled>Update</button>
                         </form>
                     </div>
                 </div>
