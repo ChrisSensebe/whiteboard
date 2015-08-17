@@ -17,11 +17,11 @@
                     <div class="col-md-12">
                         <form id="addArticle" name="addArticle" method="post" action="/app/update">
                             <legend>Edit article</legend>
-                            <label for="title">Article title</label>
+                            <label for="title">Title</label>
                             <% include ../partials/articleId.ejs %>
                             <% include ../partials/csrfToken.ejs %>
                             <input id="title" type="text" name="title" value="<%= article.title %>" class="form-control" required>
-                            <label for="article">Article body</label>
+                            <label for="article">Post</label>
                             <textarea id="article" name="article" class="form-control" required><%= article.articleBody %></textarea>
                             <button type="submit" class="btn btn-primary">Save and exit</button>
                         </form>

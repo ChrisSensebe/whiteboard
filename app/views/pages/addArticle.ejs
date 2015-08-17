@@ -19,9 +19,9 @@
                         <form id="addArticle" name="addArticle" method="post" action="/app/addArticle">
                             <legend>New article</legend>
                             <% include ../partials/csrfToken.ejs %>
-                            <label for="title">Article title</label>
+                            <label for="title">Title</label>
                             <input id="title" type="text" name="title" class="form-control" required>
-                            <label for="article">Article body</label>
+                            <label for="article">Post</label>
                             <textarea id="article" name="article" class="form-control" required></textarea>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
